@@ -1,0 +1,93 @@
+--import statement below. 
+--use "\" between directories
+-- use single quotes (' ') around path name
+--\i 'D:/Matthew/Google Drive/UW Bothell/1 Winter Quarter 2022/1 CSS 475/Homework/Car Database/CarDatabase.txt'
+
+
+CREATE TABLE State (
+	ID			VARCHAR(2) 	NOT NULL,
+	Name			VARCHAR(14) 	NOT NULL,
+
+	Primary Key	(ID)
+);
+
+CREATE TABLE Customer (
+	ID			SERIAL      NOT NULL,
+	First_Name		VARCHAR(20) NOT NULL,
+	Last_Name		VARCHAR(20) NOT NULL,
+	Email			VARCHAR(20) UNIQUE,
+	Phone			VARCHAR(11) NOT NULL,
+	Address		VARCHAR(30) NOT NULL,
+	City			VARCHAR(30) NOT NULL,
+	ZipCode		VARCHAR(5)  NOT NULL,
+	State			VARCHAR(2)  NOT NULL,
+
+	Primary Key	(ID),
+	Foreign Key 	(State) references State(ID)
+				Deferrable Initially Deferred
+);
+
+CREATE TABLE Make (
+   ID    SERIAL		NOT NULL,
+   Name  VARCHAR(10)	NOT NULL,
+
+   Primary key ( ID)
+);
+
+CREATE TABLE Model (
+	ID		SERIAL		NOT NULL,
+	Year		INTEGER		NOT NULL,
+	MakeID		INTEGER		NOT NULL,
+	ModelName	VARCHAR(10)	NOT NULL,
+
+	Primary key ( ID),
+	Foreign Key ( MakeID) references Make( ID) 
+	Deferrable Initially Deferred
+);
+
+
+CREATE TABLE Vehicle (
+	ID 			SERIAL       NOT NULL, 
+	VIN 			VARCHAR(17)  UNIQUE NOT NULL, 
+	Modelid 		INTEGER      NOT NULL, 
+	Trim 			VARCHAR(20), 
+	Msrp 			NUMERIC(8,2) NOT NULL, 
+	Color			VARCHAR(20)  NOT NULL, 
+	Parkingstall 		INTEGER      UNIQUE, 
+	HasRecalls 		BOOLEAN      NOT NULL, 
+	RecallNotes 		VARCHAR(120), 
+	Odometer 		INTEGER      NOT NULL, 
+	IsNew			BOOLEAN      NOT NULL, 
+	
+	Primary Key(ID),
+	Foreign Key(ModelId) references Model(ID) 
+	Deferrable Initially Deferred
+);
+
+CREATE TABLE Employee ( 
+	ID			SERIAL NOT NULL, 
+	First_Name		VARCHAR(20) NOT NULL, 
+	Last_Name 		VARCHAR(20) NOT NULL, 
+	Password 		VARCHAR(20) NOT NULL,
+
+	Primary Key	(ID)
+);
+
+
+CREATE TABLE Sale (
+	ID			SERIAL		NOT NULL,
+	VehicleID		INTEGER		NOT NULL,
+	CustomerID		INTEGER		NOT NULL,
+	EmployeeID		INTEGER		NOT NULL,
+	Date			DATE		NOT NULL,
+	Price			NUMERIC(8,2)	NOT NULL,
+	DealerPurchase 		BOOLEAN		NOT NULL,
+
+	Primary key ( ID),
+	Foreign key ( VehicleID) references Vehicle( ID) 
+	Deferrable Initially Deferred,
+	Foreign key ( CustomerID) references Customer( ID) 
+	Deferrable Initially Deferred,
+	Foreign key ( EmployeeID) references Employee( ID) 
+	Deferrable Initially Deferred
+);
