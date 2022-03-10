@@ -91,3 +91,61 @@ CREATE TABLE Sale (
 	Foreign key ( EmployeeID) references Employee( ID) 
 	Deferrable Initially Deferred
 );
+
+
+INSERT INTO State VALUES ('WA', 'Washington'), ('FL', 'Florida'), ('NY', 'New York');
+
+
+INSERT INTO Customer VALUES (nextval('customer_id_seq'), 'Trenton', 'Allison',
+                             'tallison@uw.edu', '0123456789', '3000 Husky Drive',
+                             'Bothell', '98000', 'WA'
+                            ),
+                            (nextval('customer_id_seq'), 'Mickey', 'Mouse', 
+                             'mmouse@disney.com', '8008675309', '1180 Seven Seas Drive', 
+                             'Orlando', '32830', 'FL'  
+                            ),
+                            (nextval('customer_id_seq'), 'Eric', 'Adams', 
+                             'mayor@nyc.gov', '2126399675', 'City Hall',
+                             'New York', '10007', 'NY'
+                            );
+
+INSERT INTO Make VALUES ( nextval('make_id_seq'), 'Chevrolet'), 
+                        ( nextval('make_id_seq'), 'Hummer'), 
+                        ( nextval('make_id_seq'), 'Toyota');
+
+INSERT INTO Model VALUES ( nextval('model_id_seq'), 2022, (currval('make_id_seq')-2), 
+                           'Corvette'
+                         ),
+                         ( nextval('model_id_seq'), 2008, (currval('make_id_seq')-1), 'H3'
+                         ),
+                         ( nextval('model_id_seq'), 2016, (currval('make_id_seq')  ),
+                           'Prius'
+                         );
+
+INSERT INTO Vehicle VALUES (nextval('vehicle_id_seq'), '12345678901234567',
+                             (currval('make_id_seq')-2), 'Stingray', 80000.00, 
+                             'White, black stripe', 380, False, NULL, 20, True
+                            ),
+                            (nextval('vehicle_id_seq'), '12345678909876543',
+                             (currval('make_id_seq')-1), NULL, 100000.00, 
+                             'Yellow', NULL, False, NULL, 17, False
+                            ),
+                            (nextval('vehicle_id_seq'), '12345678901113150',
+                             currval('make_id_seq'),    'C',   40000.00,  
+                             'Blue'  , NULL, False, NULL, 34, False
+                            );
+
+INSERT INTO Employee VALUES (nextval('employee_id_seq'), 'Tommy', 'Lee', 'Tommyboy1'),
+                            (nextval('employee_id_seq'), 'Bruce', 'Lee', 'NinjaMan6'),
+                            (nextval('employee_id_seq'), 'Clark', 'Kent', 'Supesboi!');
+INSERT INTO Sale VALUES (nextval('Sale_id_seq'), currval('Vehicle_id_seq'),
+                         currval('Customer_id_seq'), currval('employee_id_seq'),
+                         '12-25-2021', 65000.00, false
+                        ),
+                        (nextval('Sale_id_seq'), (currval('Vehicle_id_seq')-1),
+                         (currval('Customer_id_seq')-1), (currval('employee_id_seq')-1),
+                         '03-06-2007', 120000.00, false
+                        );
+
+
+
