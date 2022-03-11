@@ -149,3 +149,108 @@ INSERT INTO Sale VALUES (nextval('Sale_id_seq'), currval('Vehicle_id_seq'),
 
 
 
+PREPARE ViewInventory_filter_make (text) AS
+        SELECT Make.name AS make, Model.modelname AS model, Trim, Color, MSRP, IsNew
+        FROM Vehicle
+           JOIN Model ON ( vehicle.modelid = model.id)
+           JOIN Make ON  ( model.makeid = make.id)
+        WHERE (Parkingstall IS NOT NULL) AND (make.name ILIKE $1)
+        ORDER BY MSRP;
+
+PREPARE ViewInventory_filter_model (text) AS
+        SELECT Make.name AS make, Model.modelname AS model, Trim, Color, MSRP, IsNew
+        FROM Vehicle
+           JOIN Model ON ( vehicle.modelid = model.id)
+           JOIN Make ON  ( model.makeid = make.id)
+        WHERE (Parkingstall IS NOT NULL) AND (model.modelname ILIKE $1)
+        ORDER BY MSRP;
+
+
+PREPARE ViewInventory_filter_Trim (text) AS
+        SELECT Make.name AS make, Model.modelname AS model, Trim, Color, MSRP, IsNew
+        FROM Vehicle
+           JOIN Model ON ( vehicle.modelid = model.id)
+           JOIN Make ON  ( model.makeid = make.id)
+        WHERE (Parkingstall IS NOT NULL) AND (trim ILIKE $1)
+        ORDER BY MSRP;
+
+PREPARE ViewInventory_filter_Color (text) AS
+        SELECT Make.name AS make, Model.modelname AS model, Trim, Color, MSRP, IsNew
+        FROM Vehicle
+           JOIN Model ON ( vehicle.modelid = model.id)
+           JOIN Make ON  ( model.makeid = make.id)
+        WHERE (Parkingstall IS NOT NULL) AND (color ILIKE $1)
+        ORDER BY MSRP;
+
+PREPARE ViewInventory_filter_New ( text ) AS
+        SELECT Make.name AS make, Model.modelname AS model, Trim, Color, MSRP, IsNew
+        FROM Vehicle
+           JOIN Model ON ( vehicle.modelid = model.id)
+           JOIN Make ON  ( model.makeid = make.id)
+        WHERE (Parkingstall IS NOT NULL) AND (IsNew)
+        ORDER BY MSRP;
+
+PREPARE CreateSale (text) AS
+        INSERT INTO Sale VALUES (nextval('Sale_id_seq'), 
+                          (SELECT Vehicle.id 
+                           FROM Vehicle 
+                           WHERE VIN = $1
+                          ),
+                         (SELECT Customer.ID 
+                          FROM Customer 
+                          WHERE (First_Name ILIKE $2) AND (Phone ILIKE $3)
+                         ),
+                         $4, $5, $6, false);
+
+PREPARE MoveCarToBuyer (text) AS
+        UPDATE Vehicle 
+        SET ParkingStall = NULL
+        WHERE VIN = $1;
+
+PREPARE CreatePurchase (text) AS
+        INSERT INTO Sale VALUES (nextval('Sale_id_seq'), 
+                          (SELECT Vehicle.id 
+                           FROM Vehicle 
+                           WHERE VIN = $1
+                          ),
+                         (SELECT Customer.ID 
+                          FROM Customer 
+                          WHERE (First_Name ILIKE $2) AND (Phone ILIKE $3)
+                         ),
+                         $4, $5, $6, true);
+
+PREPARE MoveCarToParkingSpot (text) AS
+        UPDATE Vehicle 
+        SET ParkingStall = $1
+        WHERE VIN = $2;
+
+PREPARE Generate_Vehicle_Report (text) AS
+        SELECT * 
+        FROM Vehicle
+        WHERE VIN = $1;
+
+PREPARE Transactions_report (text) AS
+        SELECT *
+        FROM Sale;
+
+PREPARE Sales_by_employee (text) AS
+        SELECT *
+        FROM Sale
+        WHERE employeeid = $1;
+
+PRPARE Sales_report
+       SELECT *
+       FROM Sale
+       WHERE DealerPurchase = false;
+
+PREPARE Purchases_report
+        SELECT *
+        FROM Sale
+        WHERE DealerPurchase = true;
+
+PREPARE Sales_by_date
+        SELECT *
+        FROM Sale
+        WHERE ($1 < date) AND ($2 > date);
+
+
