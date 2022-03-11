@@ -79,7 +79,7 @@ public class MainFrame {
 					String Statename = Name.getText();
 					
 					Class.forName("org.postgresql.Driver");
-					con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cardealership", "postgres", "YOUR PASSWORD");
+					con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cardb", "postgres", "#Rose5109");
 					
 					String sql = "INSERT INTO State(ID, Name) VALUES(?, ?)";
 					PreparedStatement statement = con.prepareStatement(sql);
