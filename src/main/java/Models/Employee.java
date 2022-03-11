@@ -11,6 +11,13 @@ public class Employee {
 		this.last_name = last_name;
 	}
 
+	public Employee(int iD, String first_name, String last_name) {
+		super();
+		ID = iD;
+		this.first_name = first_name;
+		this.last_name = last_name;
+	}
+
 	public int getID() {
 		return ID;
 	}
@@ -34,5 +41,11 @@ public class Employee {
 	public void setLast_name(String last_name) {
 		this.last_name = last_name;
 	}
-		
+
+	@Override
+	public String toString() {
+		return "Employee [ID=" + ID + ", first_name=" + first_name + ", last_name=" + last_name + "]";
+	}
+	
+	
 }
