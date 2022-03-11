@@ -1,4 +1,4 @@
-package main.java.Models;
+package main.java;
 
 import java.awt.EventQueue;
 import java.sql.*;
