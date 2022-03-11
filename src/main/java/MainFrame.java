@@ -1,15 +1,17 @@
 package main.java;
 
 import java.awt.EventQueue;
-import java.sql.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class MainFrame {
 
@@ -75,11 +77,12 @@ public class MainFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					userInfo user = new userInfo();
 					String Stateid = ID.getText();
 					String Statename = Name.getText();
 					
 					Class.forName("org.postgresql.Driver");
-					con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/cardb", "postgres", "#Rose5109");
+					con = DriverManager.getConnection(user.filepath, "postgres", user.password);
 					
 					String sql = "INSERT INTO State(ID, Name) VALUES(?, ?)";
 					PreparedStatement statement = con.prepareStatement(sql);
