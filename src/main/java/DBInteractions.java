@@ -4,5 +4,9 @@
 package main.java;
 
 public class DBInteractions {
+	// main here is for TESTING. Remove main and its contents upon completion
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 
+	}
 }
