@@ -30,6 +30,23 @@ public class Vehicle {
 		this.isNew = isNew;
 	}
 
+	public Vehicle(int iD, String make, String model, int year, String trim, double mSRP, String color,
+			int parkingStall, boolean hasRecalls, String recallNotes, int odometer, boolean isNew) {
+		super();
+		ID = iD;
+		this.make = make;
+		this.model = model;
+		this.year = year;
+		this.trim = trim;
+		MSRP = mSRP;
+		this.color = color;
+		this.parkingStall = parkingStall;
+		this.hasRecalls = hasRecalls;
+		this.recallNotes = recallNotes;
+		this.odometer = odometer;
+		this.isNew = isNew;
+	}
+
 	public int getID() {
 		return ID;
 	}
@@ -124,6 +141,13 @@ public class Vehicle {
 
 	public void setNew(boolean isNew) {
 		this.isNew = isNew;
+	}
+
+	@Override
+	public String toString() {
+		return "Vehicle [ID=" + ID + ", make=" + make + ", model=" + model + ", year=" + year + ", trim=" + trim
+				+ ", MSRP=" + MSRP + ", color=" + color + ", parkingStall=" + parkingStall + ", hasRecalls="
+				+ hasRecalls + ", recallNotes=" + recallNotes + ", odometer=" + odometer + ", isNew=" + isNew + "]";
 	}
 	
 	

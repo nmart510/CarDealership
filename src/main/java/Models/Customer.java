@@ -24,6 +24,20 @@ public class Customer {
 		this.state = state;
 	}
 	
+	public Customer(int iD, String first_name, String last_name, String email, String phone_num, String address,
+			String city, String zip_code, String state) {
+		super();
+		ID = iD;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.email = email;
+		this.phone_num = phone_num;
+		this.address = address;
+		this.city = city;
+		this.zip_code = zip_code;
+		this.state = state;
+	}
+
 	public int getID() {
 		return ID;
 	}
@@ -77,6 +91,13 @@ public class Customer {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	@Override
+	public String toString() {
+		return "Customer [ID=" + ID + ", first_name=" + first_name + ", last_name=" + last_name + ", email=" + email
+				+ ", phone_num=" + phone_num + ", address=" + address + ", city=" + city + ", zip_code=" + zip_code
+				+ ", state=" + state + "]";
 	}
 	
 }
