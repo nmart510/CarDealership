@@ -1,5 +1,10 @@
 package main.java;
 
+import java.util.List;
+
+import main.java.Models.Customer;
+import main.java.Models.Employee;
+import main.java.Models.Sales;
 import main.java.Models.Vehicle;
 
 public class Dealership {
@@ -13,7 +18,7 @@ public class Dealership {
 		
 		return false;
 	}
-	public Vehicle[] viewCars() {
+	public List<Vehicle> viewCars() {
 		
 		
 		return null;
@@ -26,15 +31,7 @@ public class Dealership {
 		
 		return false;
 	}
-	public String postRecall() {
-		
-		return null;
-	}
-	public String generateReport() {
-		
-		return null;
-	}
-	public String generateSalesHistory() {
+	public List<Sales> generateSalesHistory() {
 		//Will need to make a Sales class for this and return an array of Sales.
 		return null;
 	} //Needs overloads
@@ -49,5 +46,29 @@ public class Dealership {
 	public boolean addEmployee() {
 		
 		return false;
+	}
+	public List<Employee> getEmployees(){
+		
+		return null;
+	}
+	public Employee getEmployeeByID(int ID) {
+		
+		return null;
+	}
+	public Employee getEmployeeByName(String name) {
+		
+		return null;
+	}
+	public List<Customer> getCustomers(){
+		
+		return null;
+	}
+	public Customer getCustomerByID(int ID) {
+		
+		return null;
+	}
+	public Customer getCustomerByName(String name) {
+		
+		return null;
 	}
 }
