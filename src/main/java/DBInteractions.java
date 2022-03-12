@@ -10,24 +10,18 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.table.DefaultTableModel;
+
 import main.java.Models.Employee;
 
 
 public class DBInteractions {
 	
-	Connection con;
-	PreparedStatement pst;
-	userInfo user = new userInfo();
+	Connection con = null;
+	PreparedStatement pst = null;
+	ResultSet rs = null;
 	
-	/*
-	try {
-		Class.forName("org.postgresql.Driver");
-		con = DriverManager.getConnection(user.filepath, "postgres", user.password);
-	}
-	catch(Exception e1) {
-		System.out.println(e1.toString());
-	}
-	*/
+	userInfo user = new userInfo();
 	
 	// main here is for TESTING. Remove main and its contents upon completion
 	
@@ -48,7 +42,7 @@ public class DBInteractions {
 			
 			String sql = "SELECT * FROM Employee";
 			PreparedStatement statement = con.prepareStatement(sql);
-			ResultSet rs = statement.executeQuery();
+			rs = statement.executeQuery();
 			while (rs.next()) {
 				el.add(new Employee(rs.getInt("ID"), rs.getString("first_name"), rs.getString("last_name")));
 			}
@@ -59,5 +53,5 @@ public class DBInteractions {
 		}
 		return null;
 	}
-	
+		
 }
