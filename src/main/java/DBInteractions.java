@@ -10,10 +10,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.table.DefaultTableModel;
-
+import main.java.Models.Customer;
 import main.java.Models.Employee;
-
+import main.java.Models.Sales;
+import main.java.Models.Vehicle;
 
 public class DBInteractions {
 	
@@ -47,6 +47,95 @@ public class DBInteractions {
 				el.add(new Employee(rs.getInt("ID"), rs.getString("first_name"), rs.getString("last_name")));
 			}
 			return el;
+		}
+		catch(Exception e1) {
+			System.out.println(e1.toString());
+		}
+		return null;
+	}
+	public List<Customer> getCustomers() {
+		List<Customer> cl = new ArrayList<Customer>();
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "SELECT * FROM Customer";
+			PreparedStatement statement = con.prepareStatement(sql);
+			rs = statement.executeQuery();
+			
+			while (rs.next()) {
+				cl.add(new Customer(rs.getInt("ID"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"), rs.getString("phone"),
+						rs.getString("address"), rs.getString("city"), rs.getString("zipcode"), rs.getString("state")));
+			}
+			return cl;
+		}
+		catch(Exception e1) {
+			System.out.println(e1.toString());
+		}
+		return null;
+	}
+	public List<Vehicle> getVehicles() {
+		List<Vehicle> vl = new ArrayList<Vehicle>();
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "SELECT * FROM Vehicle";
+			PreparedStatement statement = con.prepareStatement(sql);
+			rs = statement.executeQuery();
+			while (rs.next()) {
+				String[] mm = getMakeModel(rs.getInt("modelID"));
+				vl.add(new Vehicle(rs.getInt("ID"), rs.getInt("vin"), mm[1], mm[0], Integer.parseInt(mm[2]), rs.getString("trim"), rs.getDouble("msrp"), 
+						rs.getString("color"), rs.getInt("parkingstall"), rs.getInt("odometer"),rs.getBoolean("isnew")));
+			}
+			return vl;
+		}
+		catch(Exception e1) {
+			System.out.println(e1.toString());
+		}
+		return null;
+	}
+	public List<Sales> getSales() {
+		List<Sales> sl = new ArrayList<Sales>();
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "SELECT * FROM Sale";
+			PreparedStatement statement = con.prepareStatement(sql);
+			rs = statement.executeQuery();
+			while (rs.next()) {
+				sl.add(new Sales(rs.getInt("ID"), rs.getInt("vehicleID"), rs.getInt("customerID"), rs.getInt("employeeID"), rs.getString("date"), 
+						rs.getDouble("price"), rs.getBoolean("dealerpurchase")));
+			}
+			return sl;
+		}
+		catch(Exception e1) {
+			System.out.println(e1.toString());
+		}
+		return null;
+	}
+	public String[] getMakeModel(int modelID) {
+		try {
+			String[] mm = new String[3];
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "SELECT * FROM Model WHERE ID = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, modelID);
+			rs = statement.executeQuery();
+			mm[0] = rs.getString("modelname");
+			int makeID = rs.getInt("makeID");
+			mm[2] = rs.getInt("year")+"";
+			
+			String sql2 = "SELECT * FROM Make WHERE ID = ?";
+			PreparedStatement statement2 = con.prepareStatement(sql2);
+			statement2.setInt(1, makeID);
+			rs = statement2.executeQuery();
+			mm[1] = rs.getString("name");
+			return mm;
+			
 		}
 		catch(Exception e1) {
 			System.out.println(e1.toString());

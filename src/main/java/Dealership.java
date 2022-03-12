@@ -21,9 +21,7 @@ public class Dealership {
 		return false;
 	}
 	public List<Vehicle> viewCars() {
-		
-		
-		return null;
+		return dbi.getVehicles();
 	} //Need to overload
 	public boolean sellCar() {
 		
@@ -34,9 +32,8 @@ public class Dealership {
 		return false;
 	}
 	public List<Sales> generateSalesHistory() {
-		//Will need to make a Sales class for this and return an array of Sales.
-		return null;
-	} //Needs overloads
+		return dbi.getSales();
+	}
 	public boolean addVehicle() {
 		
 		return false;
@@ -61,8 +58,7 @@ public class Dealership {
 		return null;
 	}
 	public List<Customer> getCustomers(){
-		
-		return null;
+		return dbi.getCustomers();
 	}
 	public Customer getCustomerByID(int ID) {
 		

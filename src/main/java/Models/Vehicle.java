@@ -2,6 +2,7 @@ package main.java.Models;
 
 public class Vehicle {
 	int ID;
+	int vin;
 	String make;
 	String model;
 	int year;
@@ -9,14 +10,13 @@ public class Vehicle {
 	double MSRP;
 	String color;
 	int parkingStall;
-	boolean hasRecalls;
-	String recallNotes;
 	int odometer;
 	boolean isNew;
 	
-	public Vehicle(String make, String model, int year, String trim, double mSRP, String color, int parkingStall,
-			boolean hasRecalls, String recallNotes, int odometer, boolean isNew) {
+	public Vehicle(int vin, String make, String model, int year, String trim, double mSRP, String color, int parkingStall,
+			int odometer, boolean isNew) {
 		super();
+		this.vin = vin;
 		this.make = make;
 		this.model = model;
 		this.year = year;
@@ -24,16 +24,15 @@ public class Vehicle {
 		MSRP = mSRP;
 		this.color = color;
 		this.parkingStall = parkingStall;
-		this.hasRecalls = hasRecalls;
-		this.recallNotes = recallNotes;
 		this.odometer = odometer;
 		this.isNew = isNew;
 	}
 
-	public Vehicle(int iD, String make, String model, int year, String trim, double mSRP, String color,
-			int parkingStall, boolean hasRecalls, String recallNotes, int odometer, boolean isNew) {
+	public Vehicle(int iD, int vin, String make, String model, int year, String trim, double mSRP, String color,
+			int parkingStall, int odometer, boolean isNew) {
 		super();
 		ID = iD;
+		this.vin = vin;
 		this.make = make;
 		this.model = model;
 		this.year = year;
@@ -41,8 +40,6 @@ public class Vehicle {
 		MSRP = mSRP;
 		this.color = color;
 		this.parkingStall = parkingStall;
-		this.hasRecalls = hasRecalls;
-		this.recallNotes = recallNotes;
 		this.odometer = odometer;
 		this.isNew = isNew;
 	}
@@ -53,6 +50,14 @@ public class Vehicle {
 
 	public void setID(int iD) {
 		ID = iD;
+	}
+
+	public int getVin() {
+		return vin;
+	}
+
+	public void setVin(int vin) {
+		this.vin = vin;
 	}
 
 	public String getMake() {
@@ -111,21 +116,6 @@ public class Vehicle {
 		this.parkingStall = parkingStall;
 	}
 
-	public boolean isHasRecalls() {
-		return hasRecalls;
-	}
-
-	public void setHasRecalls(boolean hasRecalls) {
-		this.hasRecalls = hasRecalls;
-	}
-
-	public String getRecallNotes() {
-		return recallNotes;
-	}
-
-	public void setRecallNotes(String recallNotes) {
-		this.recallNotes = recallNotes;
-	}
 
 	public int getOdometer() {
 		return odometer;
@@ -145,9 +135,8 @@ public class Vehicle {
 
 	@Override
 	public String toString() {
-		return "Vehicle [ID=" + ID + ", make=" + make + ", model=" + model + ", year=" + year + ", trim=" + trim
-				+ ", MSRP=" + MSRP + ", color=" + color + ", parkingStall=" + parkingStall + ", hasRecalls="
-				+ hasRecalls + ", recallNotes=" + recallNotes + ", odometer=" + odometer + ", isNew=" + isNew + "]";
+		return "Vehicle [ID=" + ID + ", VIN=" + vin + ", make=" + make + ", model=" + model + ", year=" + year + ", trim=" + trim
+				+ ", MSRP=" + MSRP + ", color=" + color + ", parkingStall=" + parkingStall + ", odometer=" + odometer + ", isNew=" + isNew + "]";
 	}
 	
 	
