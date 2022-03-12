@@ -9,6 +9,7 @@ import main.java.Models.Sales;
 import main.java.Models.Vehicle;
 
 public class Dealership {
+	DBInteractions dbi = new DBInteractions();
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -49,8 +50,7 @@ public class Dealership {
 		return false;
 	}
 	public List<Employee> getEmployees(){
-		
-		return null;
+		return dbi.getEmployees();
 	}
 	public Employee getEmployeeByID(int ID) {
 		
@@ -71,5 +71,9 @@ public class Dealership {
 	public Customer getCustomerByName(String name) {
 		
 		return null;
+	}
+	public boolean checkPassword(String pass) {
+		
+		return false;
 	}
 }
