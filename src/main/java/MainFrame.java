@@ -181,7 +181,7 @@ public class MainFrame {
 					List<Vehicle> vehl = ds.getVehicles();
 					vehl.forEach(e -> {
 						if (e.getTrim() == null) {
-							if(e.getParkingStall() == 0) {
+							if(e.getParkingStall() == null) {
 								vehicle.addRow(new Object[] {e.getID(), e.getVin(), e.getMake(), e.getModel(), e.getYear(), " ", e.getMSRP(), e.getColor(), " ", 
 										e.getOdometer(), e.isNew()});
 							}

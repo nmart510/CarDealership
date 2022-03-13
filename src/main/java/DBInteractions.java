@@ -27,14 +27,14 @@ public class DBInteractions {
 	
 	public static void main(String[] args) {
 		//Attempted to see what was wrong with vehicles but wont even return a string
-		/*
+		
 		List<Vehicle> vh1 = new ArrayList<Vehicle>();
 		DBInteractions d = new DBInteractions();
 		
 		vh1 = d.getVehicles();
 		
-			System.out.print(vh1.toString());
-		*/
+			System.out.print(vh1.toString() );
+		
 	}
 	
 	public List<Employee> getEmployees() {
@@ -78,6 +78,7 @@ public class DBInteractions {
 		return null;
 	}
 	public List<Vehicle> getVehicles() {
+		System.out.println("Getting Vehicles");
 		List<Vehicle> vl = new ArrayList<Vehicle>();
 		try {
 			Class.forName("org.postgresql.Driver");
@@ -88,8 +89,10 @@ public class DBInteractions {
 			rs = statement.executeQuery();
 			while (rs.next()) {
 				String[] mm = getMakeModel(rs.getInt("modelID"));
-				vl.add(new Vehicle(rs.getInt("ID"), rs.getInt("vin"), mm[1], mm[0], Integer.parseInt(mm[2]), rs.getString("trim"), rs.getDouble("msrp"), 
-						rs.getString("color"), rs.getInt("parkingstall"), rs.getInt("odometer"),rs.getBoolean("isnew")));
+				System.out.println(mm[0] + "   " + mm[1] + "   " + mm[2]);
+				
+				vl.add(new Vehicle(rs.getInt("ID"), rs.getString("vin"), mm[1], mm[0], Integer.parseInt(mm[2]), rs.getString("trim"), rs.getDouble("msrp"), 
+						rs.getString("color"), rs.getString("parkingstall"), rs.getInt("odometer"),rs.getBoolean("isnew")));
 			}
 			return vl;
 		}
@@ -119,6 +122,7 @@ public class DBInteractions {
 		return null;
 	}
 	public String[] getMakeModel(int modelID) {
+		System.out.println("Getting Model and Model");
 		try {
 			String[] mm = new String[3];
 			Class.forName("org.postgresql.Driver");
@@ -127,16 +131,18 @@ public class DBInteractions {
 			String sql = "SELECT * FROM Model WHERE ID = ?";
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setInt(1, modelID);
-			rs = statement.executeQuery();
-			mm[0] = rs.getString("modelname");
-			int makeID = rs.getInt("makeID");
-			mm[2] = rs.getInt("year")+"";
+			ResultSet rs1 = statement.executeQuery();
+			rs1.next();
+			mm[0] = rs1.getString("name");
+			int makeID = rs1.getInt("makeID");
+			mm[2] = rs1.getInt("year")+"";
 			
 			String sql2 = "SELECT * FROM Make WHERE ID = ?";
 			PreparedStatement statement2 = con.prepareStatement(sql2);
 			statement2.setInt(1, makeID);
-			rs = statement2.executeQuery();
-			mm[1] = rs.getString("name");
+			ResultSet rs2 = statement2.executeQuery();
+			rs2.next();
+			mm[1] = rs2.getString("name");
 			return mm;
 			
 		}

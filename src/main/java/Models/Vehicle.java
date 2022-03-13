@@ -2,18 +2,18 @@ package main.java.Models;
 
 public class Vehicle {
 	int ID;
-	int vin;
+	String vin;
 	String make;
 	String model;
 	int year;
 	String trim;
 	double MSRP;
 	String color;
-	int parkingStall;
+	String parkingStall;
 	int odometer;
 	boolean isNew;
 	
-	public Vehicle(int vin, String make, String model, int year, String trim, double mSRP, String color, int parkingStall,
+	public Vehicle(String vin, String make, String model, int year, String trim, double mSRP, String color, String parkingStall,
 			int odometer, boolean isNew) {
 		super();
 		this.vin = vin;
@@ -28,8 +28,8 @@ public class Vehicle {
 		this.isNew = isNew;
 	}
 
-	public Vehicle(int iD, int vin, String make, String model, int year, String trim, double mSRP, String color,
-			int parkingStall, int odometer, boolean isNew) {
+	public Vehicle(int iD, String vin, String make, String model, int year, String trim, double mSRP, String color,
+			String parkingStall, int odometer, boolean isNew) {
 		super();
 		ID = iD;
 		this.vin = vin;
@@ -52,11 +52,11 @@ public class Vehicle {
 		ID = iD;
 	}
 
-	public int getVin() {
+	public String getVin() {
 		return vin;
 	}
 
-	public void setVin(int vin) {
+	public void setVin(String vin) {
 		this.vin = vin;
 	}
 
@@ -108,11 +108,11 @@ public class Vehicle {
 		this.color = color;
 	}
 
-	public int getParkingStall() {
+	public String getParkingStall() {
 		return parkingStall;
 	}
 
-	public void setParkingStall(int parkingStall) {
+	public void setParkingStall(String parkingStall) {
 		this.parkingStall = parkingStall;
 	}
 
