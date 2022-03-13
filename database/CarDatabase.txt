@@ -6,21 +6,21 @@
 
 CREATE TABLE State (
 	ID			VARCHAR(2) 	NOT NULL,
-	Name			VARCHAR(14) 	NOT NULL,
+	Name		VARCHAR(14) 	NOT NULL,
 
 	Primary Key	(ID)
 );
 
 CREATE TABLE Customer (
 	ID			SERIAL      NOT NULL,
-	First_Name		VARCHAR(20) NOT NULL,
-	Last_Name		VARCHAR(20) NOT NULL,
-	Email			VARCHAR(20) UNIQUE,
-	Phone			VARCHAR(11) NOT NULL,
+	First_Name	VARCHAR(20) NOT NULL,
+	Last_Name	VARCHAR(20) NOT NULL,
+	Email		VARCHAR(20) UNIQUE,
+	Phone		VARCHAR(11) NOT NULL,
 	Address		VARCHAR(30) NOT NULL,
-	City			VARCHAR(30) NOT NULL,
+	City		VARCHAR(30) NOT NULL,
 	ZipCode		VARCHAR(5)  NOT NULL,
-	State			VARCHAR(2)  NOT NULL,
+	State		VARCHAR(2)  NOT NULL,
 
 	Primary Key	(ID),
 	Foreign Key 	(State) references State(ID)
@@ -36,9 +36,9 @@ CREATE TABLE Make (
 
 CREATE TABLE Model (
 	ID		SERIAL		NOT NULL,
-	Year		INTEGER		NOT NULL,
-	MakeID		INTEGER		NOT NULL,
-	ModelName	VARCHAR(10)	NOT NULL,
+	Year	INTEGER		NOT NULL,
+	MakeID	INTEGER		NOT NULL,
+	Name	VARCHAR(10)	NOT NULL,
 
 	Primary key ( ID),
 	Foreign Key ( MakeID) references Make( ID) 
@@ -53,9 +53,9 @@ CREATE TABLE Vehicle (
 	Trim 			VARCHAR(20), 
 	Msrp 			NUMERIC(8,2) NOT NULL, 
 	Color			VARCHAR(20)  NOT NULL, 
-	Parkingstall 		INTEGER      UNIQUE, 
+	Parkingstall 	VARCHAR(4)   UNIQUE, 
 	HasRecalls 		BOOLEAN      NOT NULL, 
-	RecallNotes 		VARCHAR(120), 
+	RecallNotes 	VARCHAR(120), 
 	Odometer 		INTEGER      NOT NULL, 
 	IsNew			BOOLEAN      NOT NULL, 
 	
@@ -150,7 +150,7 @@ INSERT INTO Sale VALUES (nextval('Sale_id_seq'), currval('Vehicle_id_seq'),
 
 
 PREPARE ViewInventory_filter_make (text) AS
-        SELECT Make.name AS make, Model.modelname AS model, Trim, Color, MSRP, IsNew
+        SELECT Make.name AS make, Model.name AS model, Trim, Color, MSRP, IsNew
         FROM Vehicle
            JOIN Model ON ( vehicle.modelid = model.id)
            JOIN Make ON  ( model.makeid = make.id)
@@ -158,16 +158,16 @@ PREPARE ViewInventory_filter_make (text) AS
         ORDER BY MSRP;
 
 PREPARE ViewInventory_filter_model (text) AS
-        SELECT Make.name AS make, Model.modelname AS model, Trim, Color, MSRP, IsNew
+        SELECT Make.name AS make, Model.name AS model, Trim, Color, MSRP, IsNew
         FROM Vehicle
            JOIN Model ON ( vehicle.modelid = model.id)
            JOIN Make ON  ( model.makeid = make.id)
-        WHERE (Parkingstall IS NOT NULL) AND (model.modelname ILIKE $1)
+        WHERE (Parkingstall IS NOT NULL) AND (model.name ILIKE $1)
         ORDER BY MSRP;
 
 
 PREPARE ViewInventory_filter_Trim (text) AS
-        SELECT Make.name AS make, Model.modelname AS model, Trim, Color, MSRP, IsNew
+        SELECT Make.name AS make, Model.name AS model, Trim, Color, MSRP, IsNew
         FROM Vehicle
            JOIN Model ON ( vehicle.modelid = model.id)
            JOIN Make ON  ( model.makeid = make.id)
@@ -175,7 +175,7 @@ PREPARE ViewInventory_filter_Trim (text) AS
         ORDER BY MSRP;
 
 PREPARE ViewInventory_filter_Color (text) AS
-        SELECT Make.name AS make, Model.modelname AS model, Trim, Color, MSRP, IsNew
+        SELECT Make.name AS make, Model.name AS model, Trim, Color, MSRP, IsNew
         FROM Vehicle
            JOIN Model ON ( vehicle.modelid = model.id)
            JOIN Make ON  ( model.makeid = make.id)
@@ -183,7 +183,7 @@ PREPARE ViewInventory_filter_Color (text) AS
         ORDER BY MSRP;
 
 PREPARE ViewInventory_filter_New ( text ) AS
-        SELECT Make.name AS make, Model.modelname AS model, Trim, Color, MSRP, IsNew
+        SELECT Make.name AS make, Model.name AS model, Trim, Color, MSRP, IsNew
         FROM Vehicle
            JOIN Model ON ( vehicle.modelid = model.id)
            JOIN Make ON  ( model.makeid = make.id)
