@@ -26,12 +26,15 @@ public class DBInteractions {
 	// main here is for TESTING. Remove main and its contents upon completion
 	
 	public static void main(String[] args) {
-		List<Employee> e = new ArrayList<Employee>();
+		//Attempted to see what was wrong with vehicles but wont even return a string
+		/*
+		List<Vehicle> vh1 = new ArrayList<Vehicle>();
 		DBInteractions d = new DBInteractions();
 		
-		e = d.getEmployees();
+		vh1 = d.getVehicles();
 		
-			System.out.print(e.toString());
+			System.out.print(vh1.toString());
+		*/
 	}
 	
 	public List<Employee> getEmployees() {

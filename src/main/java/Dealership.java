@@ -20,7 +20,7 @@ public class Dealership {
 		
 		return false;
 	}
-	public List<Vehicle> viewCars() {
+	public List<Vehicle> getVehicles() {
 		return dbi.getVehicles();
 	} //Need to overload
 	public boolean sellCar() {
@@ -31,7 +31,7 @@ public class Dealership {
 		
 		return false;
 	}
-	public List<Sales> generateSalesHistory() {
+	public List<Sales> getSales() {
 		return dbi.getSales();
 	}
 	public boolean addVehicle() {
