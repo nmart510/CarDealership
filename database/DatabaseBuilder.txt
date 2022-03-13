@@ -5,7 +5,7 @@
 
 
 --drop, create and connect to car database
-DROP DATABASE [IF EXISTS] cardb;
+DROP DATABASE cardb;
 CREATE DATABASE cardb;
 
 \c cardb
