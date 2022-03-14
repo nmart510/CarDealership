@@ -22,6 +22,11 @@ import main.java.Models.Customer;
 import main.java.Models.Employee;
 import main.java.Models.Sales;
 import main.java.Models.Vehicle;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class MainFrame {
 
@@ -38,6 +43,37 @@ public class MainFrame {
 	private JTable customerTable = new JTable(customer);
 	private JTable vehicleTable = new JTable(vehicle);
 	private JTable salesTable = new JTable(sales);
+	private JTextField VINText;
+	private JTextField TrimText;
+	private JTextField MSRPText;
+	private JTextField ColorText;
+	private JTextField ParkingText;
+	private JTextField OdometerText;
+	private JTextField isNewText;
+	private JTextField MakeText;
+	private JTextField YearText;
+	private JTextField ModelText;
+	private JTextField FSText;
+	private JTextField LSText;
+	private JTextField EmailText;
+	private JTextField PhoneText;
+	private JTextField AddressText;
+	private JTextField CityText;
+	private JTextField ZIPText;
+	private JTextField StateText;
+	private JTextField EIDText;
+	private JTextField EFSText;
+	private JTextField ELSText;
+	private JTextField SVText;
+	private JTextField SCText;
+	private JTextField SEText;
+	private JTextField DateText;
+	private JTextField PriceText;
+	private JTextField PurchaseLabel;
+	private JTextField EIDFilterText;
+	private JTextField DateFilterText;
+	private JTextField ColorFilterText;
+	private JTextField MakeFilterText;
 	
 	/**
 	 * Launch the application.
@@ -71,8 +107,8 @@ public class MainFrame {
 	private void initialize() {
 		
 		dealershipWindow = new JFrame();
-		dealershipWindow.setTitle("Testrun");
-		dealershipWindow.setBounds(100, 100, 1723, 756);
+		dealershipWindow.setTitle("Dealership");
+		dealershipWindow.setBounds(100, 100, 1880, 980);
 		dealershipWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		dealershipWindow.getContentPane().setLayout(null);
 
@@ -103,12 +139,12 @@ public class MainFrame {
 				}
 			}
 		});
-		printEmployeesButton.setBounds(434, 18, 143, 23);
+		printEmployeesButton.setBounds(1674, 593, 180, 23);
 		dealershipWindow.getContentPane().add(printEmployeesButton);
-		employeeTable.setBounds(10, 47, 567, 296);
+		employeeTable.setBounds(1287, 627, 567, 245);
 		dealershipWindow.getContentPane().add(employeeTable);
 		JLabel employeeTableLabel = new JLabel("Employees");
-		employeeTableLabel.setBounds(10, 22, 127, 14);
+		employeeTableLabel.setBounds(1287, 597, 127, 14);
 		dealershipWindow.getContentPane().add(employeeTableLabel);
 		
 		/**
@@ -145,12 +181,12 @@ public class MainFrame {
 				}
 			}
 		});
-		printCustomersButton.setBounds(1525, 18, 143, 23);
+		printCustomersButton.setBounds(1674, 18, 180, 23);
 		dealershipWindow.getContentPane().add(printCustomersButton);
-		customerTable.setBounds(1101, 47, 567, 296);
+		customerTable.setBounds(1287, 47, 567, 245);
 		dealershipWindow.getContentPane().add(customerTable);
 		JLabel customerTableLabel = new JLabel("Customers");
-		customerTableLabel.setBounds(1101, 22, 127, 14);
+		customerTableLabel.setBounds(1287, 22, 127, 14);
 		dealershipWindow.getContentPane().add(customerTableLabel);
 		
 		/**
@@ -201,12 +237,12 @@ public class MainFrame {
 				}
 			}
 		});
-		printVehiclesButton.setBounds(434, 381, 143, 23);
+		printVehiclesButton.setBounds(81, 18, 180, 23);
 		dealershipWindow.getContentPane().add(printVehiclesButton);
-		vehicleTable.setBounds(10, 410, 567, 296);
+		vehicleTable.setBounds(10, 47, 1232, 220);
 		dealershipWindow.getContentPane().add(vehicleTable);
 		JLabel vehiclesTableLabel = new JLabel("Vehicles");
-		vehiclesTableLabel.setBounds(10, 385, 127, 14);
+		vehiclesTableLabel.setBounds(10, 22, 127, 14);
 		dealershipWindow.getContentPane().add(vehiclesTableLabel);
 		
 		/**
@@ -241,13 +277,369 @@ public class MainFrame {
 				}
 			}
 		});
-		printsalesButton.setBounds(1525, 381, 143, 23);
+		printsalesButton.setBounds(1674, 303, 180, 23);
 		dealershipWindow.getContentPane().add(printsalesButton);
-		salesTable.setBounds(1101, 410, 567, 296);
+		salesTable.setBounds(1287, 337, 567, 245);
 		dealershipWindow.getContentPane().add(salesTable);
 		JLabel salesTableLabel = new JLabel("Sales");
-		salesTableLabel.setBounds(1101, 385, 127, 14);
+		salesTableLabel.setBounds(1287, 307, 127, 14);
 		dealershipWindow.getContentPane().add(salesTableLabel);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Add New Car", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 278, 265, 313);
+		dealershipWindow.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel VINLabel = new JLabel("VIN");
+		VINLabel.setBounds(10, 27, 46, 14);
+		panel.add(VINLabel);
+		
+		JLabel TrimLabel = new JLabel("Trim");
+		TrimLabel.setBounds(10, 52, 46, 14);
+		panel.add(TrimLabel);
+		
+		JLabel MSRPLabel = new JLabel("MSRP");
+		MSRPLabel.setBounds(10, 77, 46, 14);
+		panel.add(MSRPLabel);
+		
+		JLabel ColorLabel = new JLabel("Color");
+		ColorLabel.setBounds(10, 102, 46, 14);
+		panel.add(ColorLabel);
+		
+		JLabel ParkingLabel = new JLabel("Parking Stall");
+		ParkingLabel.setBounds(10, 127, 135, 14);
+		panel.add(ParkingLabel);
+		
+		JLabel OdometerLabel = new JLabel("Odometer");
+		OdometerLabel.setBounds(10, 152, 69, 14);
+		panel.add(OdometerLabel);
+		
+		JLabel isNewLabel = new JLabel("New");
+		isNewLabel.setBounds(10, 177, 69, 14);
+		panel.add(isNewLabel);
+		
+		JLabel MakeLabel = new JLabel("Make");
+		MakeLabel.setBounds(10, 202, 69, 14);
+		panel.add(MakeLabel);
+		
+		JLabel YearLabel = new JLabel("Year");
+		YearLabel.setBounds(10, 227, 69, 14);
+		panel.add(YearLabel);
+		
+		JLabel ModelLabel = new JLabel("Model");
+		ModelLabel.setBounds(10, 252, 69, 14);
+		panel.add(ModelLabel);
+		
+		JButton AddCarButton = new JButton("Add Car");
+		AddCarButton.setBounds(10, 279, 245, 23);
+		panel.add(AddCarButton);
+		
+		VINText = new JTextField();
+		VINText.setBounds(155, 24, 100, 20);
+		panel.add(VINText);
+		VINText.setColumns(10);
+		
+		TrimText = new JTextField();
+		TrimText.setColumns(10);
+		TrimText.setBounds(155, 49, 100, 20);
+		panel.add(TrimText);
+		
+		MSRPText = new JTextField();
+		MSRPText.setColumns(10);
+		MSRPText.setBounds(155, 74, 100, 20);
+		panel.add(MSRPText);
+		
+		ColorText = new JTextField();
+		ColorText.setColumns(10);
+		ColorText.setBounds(155, 99, 100, 20);
+		panel.add(ColorText);
+		
+		ParkingText = new JTextField();
+		ParkingText.setColumns(10);
+		ParkingText.setBounds(155, 124, 100, 20);
+		panel.add(ParkingText);
+		
+		OdometerText = new JTextField();
+		OdometerText.setColumns(10);
+		OdometerText.setBounds(155, 149, 100, 20);
+		panel.add(OdometerText);
+		
+		isNewText = new JTextField();
+		isNewText.setColumns(10);
+		isNewText.setBounds(155, 174, 100, 20);
+		panel.add(isNewText);
+		
+		MakeText = new JTextField();
+		MakeText.setColumns(10);
+		MakeText.setBounds(155, 199, 100, 20);
+		panel.add(MakeText);
+		
+		YearText = new JTextField();
+		YearText.setColumns(10);
+		YearText.setBounds(155, 224, 100, 20);
+		panel.add(YearText);
+		
+		ModelText = new JTextField();
+		ModelText.setColumns(10);
+		ModelText.setBounds(155, 249, 100, 20);
+		panel.add(ModelText);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "Add New Customer", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(281, 278, 265, 313);
+		dealershipWindow.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel FSLabel = new JLabel("First Name");
+		FSLabel.setBounds(10, 27, 67, 14);
+		panel_1.add(FSLabel);
+		
+		JLabel LSLabel = new JLabel("Last Name");
+		LSLabel.setBounds(10, 52, 67, 14);
+		panel_1.add(LSLabel);
+		
+		JLabel EmailLabel = new JLabel("Email");
+		EmailLabel.setBounds(10, 77, 67, 14);
+		panel_1.add(EmailLabel);
+		
+		JLabel PhoneLabel = new JLabel("Phone Number");
+		PhoneLabel.setBounds(10, 102, 135, 14);
+		panel_1.add(PhoneLabel);
+		
+		JLabel AddressLabel = new JLabel("Address");
+		AddressLabel.setBounds(10, 127, 77, 14);
+		panel_1.add(AddressLabel);
+		
+		JLabel CityLabel = new JLabel("City");
+		CityLabel.setBounds(10, 152, 77, 14);
+		panel_1.add(CityLabel);
+		
+		JLabel ZipLabel = new JLabel("Zip Code");
+		ZipLabel.setBounds(10, 177, 77, 14);
+		panel_1.add(ZipLabel);
+		
+		JLabel StateLabel = new JLabel("State");
+		StateLabel.setBounds(10, 202, 77, 14);
+		panel_1.add(StateLabel);
+		
+		FSText = new JTextField();
+		FSText.setBounds(155, 24, 100, 20);
+		panel_1.add(FSText);
+		FSText.setColumns(10);
+		
+		LSText = new JTextField();
+		LSText.setColumns(10);
+		LSText.setBounds(155, 49, 100, 20);
+		panel_1.add(LSText);
+		
+		EmailText = new JTextField();
+		EmailText.setColumns(10);
+		EmailText.setBounds(155, 74, 100, 20);
+		panel_1.add(EmailText);
+		
+		PhoneText = new JTextField();
+		PhoneText.setColumns(10);
+		PhoneText.setBounds(155, 99, 100, 20);
+		panel_1.add(PhoneText);
+		
+		AddressText = new JTextField();
+		AddressText.setColumns(10);
+		AddressText.setBounds(155, 124, 100, 20);
+		panel_1.add(AddressText);
+		
+		CityText = new JTextField();
+		CityText.setColumns(10);
+		CityText.setBounds(155, 149, 100, 20);
+		panel_1.add(CityText);
+		
+		ZIPText = new JTextField();
+		ZIPText.setColumns(10);
+		ZIPText.setBounds(155, 174, 100, 20);
+		panel_1.add(ZIPText);
+		
+		StateText = new JTextField();
+		StateText.setColumns(10);
+		StateText.setBounds(155, 199, 100, 20);
+		panel_1.add(StateText);
+		
+		JButton AddCustomerButton = new JButton("Add Customer");
+		AddCustomerButton.setBounds(10, 279, 245, 23);
+		panel_1.add(AddCustomerButton);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "Add Employee", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBounds(550, 278, 265, 313);
+		dealershipWindow.getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel EIDLabel = new JLabel("Employee ID");
+		EIDLabel.setBounds(10, 27, 135, 14);
+		panel_2.add(EIDLabel);
+		
+		JLabel EFSLabel = new JLabel("First Name");
+		EFSLabel.setBounds(10, 52, 68, 14);
+		panel_2.add(EFSLabel);
+		
+		JLabel ELSLabel = new JLabel("Last Name");
+		ELSLabel.setBounds(10, 77, 68, 14);
+		panel_2.add(ELSLabel);
+		
+		EIDText = new JTextField();
+		EIDText.setBounds(155, 24, 100, 20);
+		panel_2.add(EIDText);
+		EIDText.setColumns(10);
+		
+		EFSText = new JTextField();
+		EFSText.setColumns(10);
+		EFSText.setBounds(155, 49, 100, 20);
+		panel_2.add(EFSText);
+		
+		ELSText = new JTextField();
+		ELSText.setColumns(10);
+		ELSText.setBounds(155, 74, 100, 20);
+		panel_2.add(ELSText);
+		
+		JButton AddEmployeeButton = new JButton("Add Employee");
+		AddEmployeeButton.setBounds(10, 279, 245, 23);
+		panel_2.add(AddEmployeeButton);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Make a Sale", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_3.setBounds(819, 278, 265, 313);
+		dealershipWindow.getContentPane().add(panel_3);
+		panel_3.setLayout(null);
+		
+		JLabel SVLabel = new JLabel("Vehicle ID");
+		SVLabel.setBounds(10, 27, 62, 14);
+		panel_3.add(SVLabel);
+		
+		JLabel SCLabel = new JLabel("Customer ID");
+		SCLabel.setBounds(10, 50, 135, 14);
+		panel_3.add(SCLabel);
+		
+		JLabel SElabel = new JLabel("Employee ID");
+		SElabel.setBounds(10, 75, 135, 14);
+		panel_3.add(SElabel);
+		
+		JLabel DateLabel = new JLabel("Date ");
+		DateLabel.setBounds(10, 99, 62, 14);
+		panel_3.add(DateLabel);
+		
+		JLabel PriceLabel = new JLabel("Price");
+		PriceLabel.setBounds(10, 124, 62, 14);
+		panel_3.add(PriceLabel);
+		
+		JLabel DealerPLabel = new JLabel("Purchased by Dealership");
+		DealerPLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		DealerPLabel.setBounds(10, 149, 245, 14);
+		panel_3.add(DealerPLabel);
+		
+		SVText = new JTextField();
+		SVText.setBounds(155, 24, 100, 20);
+		panel_3.add(SVText);
+		SVText.setColumns(10);
+		
+		SCText = new JTextField();
+		SCText.setColumns(10);
+		SCText.setBounds(155, 47, 100, 20);
+		panel_3.add(SCText);
+		
+		SEText = new JTextField();
+		SEText.setColumns(10);
+		SEText.setBounds(155, 72, 100, 20);
+		panel_3.add(SEText);
+		
+		DateText = new JTextField();
+		DateText.setColumns(10);
+		DateText.setBounds(155, 96, 100, 20);
+		panel_3.add(DateText);
+		
+		PriceText = new JTextField();
+		PriceText.setColumns(10);
+		PriceText.setBounds(155, 121, 100, 20);
+		panel_3.add(PriceText);
+		
+		PurchaseLabel = new JTextField();
+		PurchaseLabel.setColumns(10);
+		PurchaseLabel.setBounds(77, 174, 112, 20);
+		panel_3.add(PurchaseLabel);
+		
+		JButton MakeSaleButton = new JButton("Make Sale");
+		MakeSaleButton.setBounds(10, 279, 245, 23);
+		panel_3.add(MakeSaleButton);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBorder(new TitledBorder(null, "Filter Sales Table", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_4.setBounds(10, 627, 265, 245);
+		dealershipWindow.getContentPane().add(panel_4);
+		panel_4.setLayout(null);
+		
+		JLabel EIDFilterLabel = new JLabel("Employee ID");
+		EIDFilterLabel.setBounds(10, 21, 79, 14);
+		panel_4.add(EIDFilterLabel);
+		
+		EIDFilterText = new JTextField();
+		EIDFilterText.setBounds(155, 18, 100, 20);
+		panel_4.add(EIDFilterText);
+		EIDFilterText.setColumns(10);
+		
+		JButton EIDFilterButton = new JButton("Filter by Employee");
+		EIDFilterButton.setBounds(10, 49, 244, 23);
+		panel_4.add(EIDFilterButton);
+		
+		JButton SoldFilterButton = new JButton("Filter by Dealership buys");
+		SoldFilterButton.setBounds(11, 92, 244, 23);
+		panel_4.add(SoldFilterButton);
+		
+		JButton boughtFilterButton = new JButton("Filter by Dealership sells");
+		boughtFilterButton.setBounds(11, 136, 244, 23);
+		panel_4.add(boughtFilterButton);
+		
+		JLabel lblDate = new JLabel("Date");
+		lblDate.setBounds(10, 178, 79, 14);
+		panel_4.add(lblDate);
+		
+		DateFilterText = new JTextField();
+		DateFilterText.setColumns(10);
+		DateFilterText.setBounds(155, 175, 100, 20);
+		panel_4.add(DateFilterText);
+		
+		JButton DateFilterButton = new JButton("Filter by Date");
+		DateFilterButton.setBounds(10, 203, 244, 23);
+		panel_4.add(DateFilterButton);
+		
+		JPanel panel_5 = new JPanel();
+		panel_5.setBorder(new TitledBorder(null, "Filter Vehicles Table", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_5.setBounds(285, 627, 265, 245);
+		dealershipWindow.getContentPane().add(panel_5);
+		panel_5.setLayout(null);
+		
+		JLabel ColorFilterLabel = new JLabel("Color");
+		ColorFilterLabel.setBounds(10, 27, 46, 14);
+		panel_5.add(ColorFilterLabel);
+		
+		JLabel MakeFilterLabel = new JLabel("Make");
+		MakeFilterLabel.setBounds(10, 52, 46, 14);
+		panel_5.add(MakeFilterLabel);
+		
+		ColorFilterText = new JTextField();
+		ColorFilterText.setBounds(155, 24, 100, 20);
+		panel_5.add(ColorFilterText);
+		ColorFilterText.setColumns(10);
+		
+		MakeFilterText = new JTextField();
+		MakeFilterText.setColumns(10);
+		MakeFilterText.setBounds(155, 49, 100, 20);
+		panel_5.add(MakeFilterText);
+		
+		JButton VehicleFilterButton = new JButton("Filter Vehicles Table");
+		VehicleFilterButton.setBounds(10, 77, 245, 23);
+		panel_5.add(VehicleFilterButton);
+		
+		JButton OnPremisButton = new JButton("Show Vehicles at Dealership");
+		OnPremisButton.setBounds(10, 111, 245, 23);
+		panel_5.add(OnPremisButton);
 		
 	}
 }
