@@ -148,7 +148,6 @@ INSERT INTO Sale VALUES (nextval('Sale_id_seq'), currval('Vehicle_id_seq'),
                         );
 
 
-
 PREPARE ViewInventory_filter_make (text) AS
         SELECT Make.name AS make, Model.name AS model, Trim, Color, MSRP, IsNew
         FROM Vehicle
@@ -233,24 +232,22 @@ PREPARE Transactions_report (text) AS
         SELECT *
         FROM Sale;
 
-PREPARE Sales_by_employee (text) AS
+PREPARE Sales_by_employee (integer) AS
         SELECT *
         FROM Sale
         WHERE employeeid = $1;
 
-PRPARE Sales_report
+PERPARE Sales_report (text) AS
        SELECT *
        FROM Sale
        WHERE DealerPurchase = false;
 
-PREPARE Purchases_report
+PREPARE Purchases_report (text) AS
         SELECT *
         FROM Sale
         WHERE DealerPurchase = true;
 
-PREPARE Sales_by_date
+PREPARE Sales_by_date (text) AS
         SELECT *
         FROM Sale
         WHERE ($1 < date) AND ($2 > date);
-
-
