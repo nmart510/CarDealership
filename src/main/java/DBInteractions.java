@@ -233,5 +233,72 @@ public class DBInteractions {
 		}
 		return null;
 	}
+	public boolean createSale(int vId, int cId, int eId, String saleDate, double price, boolean purchase) {
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "INSERT INTO Sale VALUES (nextval(Sale_id_seq), "
+					+ "                            ?, ?, ?, ?, ?, ?)";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, vId);
+			statement.setInt(2, cId);
+			statement.setInt(3, eId);
+		    statement.setString(4, saleDate);
+		    statement.setDouble(5, price);
+		    statement.setBoolean(6, purchase);
+			statement.executeQuery();
+			return true;
+		}
+		catch(Exception e1) {
+			System.out.println(e1.toString());
+		}
+		return false;
+	}
+	public boolean changeStall(int vId, int stall) {
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "Update Vehicle SET ParkingStall = ? WHERE Vehicle.id = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, stall);
+			statement.setInt(2, vId);
+			return true;
+		}
+		catch(Exception e1) {
+			System.out.println(e1.toString());
+		}
+		return false;
+	}
+	
+	
+	public boolean createVehicle(int VIN, String modelName, String trim, double msrp, String color, String stall, int odometer, boolean isNew) {
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "INSERT INTO Vehicle VALUES (nextval(Sale_id_seq), "
+					+ "                            ?, (SELECT id FROM model WHERE model.name = ?), ?, ?, ?, ?)";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, VIN);
+			statement.setString(2, modelName);
+			statement.setString(3, trim);
+		    statement.setDouble(4, msrp);
+		    statement.setString(5, color);
+		    statement.setString(6, stall);
+		    statement.setString(6, stall);
+		    statement.setInt(7, odometer);
+		    statement.setBoolean(8, isNew);
+			statement.executeQuery();
+			return true;
+		}
+		catch(Exception e1) {
+			System.out.println(e1.toString());
+		}
+		return false;
+	}
+	// still need to add makes, models, customers, and employees to their respective tables
+	
 		
 }
