@@ -128,15 +128,15 @@ INSERT INTO Model VALUES ( nextval('model_id_seq'), 2022, (currval('make_id_seq'
 
 INSERT INTO Vehicle VALUES (nextval('vehicle_id_seq'), '12345678901234567',
                              (currval('make_id_seq')-2), 'Stingray', 80000.00, 
-                             'White, black stripe', 380, False, NULL, 20, True
+                             'White, black stripe', 380, 20, True
                             ),
                             (nextval('vehicle_id_seq'), '12345678909876543',
                              (currval('make_id_seq')-1), NULL, 100000.00, 
-                             'Yellow', NULL, False, NULL, 17, False
+                             'Yellow', NULL, 17, False
                             ),
                             (nextval('vehicle_id_seq'), '12345678901113150',
                              currval('make_id_seq'),    'C',   40000.00,  
-                             'Blue'  , NULL, False, NULL, 34, False
+                             'Blue'  , NULL, 34, False
                             );
 
 INSERT INTO Employee VALUES (nextval('employee_id_seq'), 'Tommy', 'Lee', 'Tommyboy1'),
