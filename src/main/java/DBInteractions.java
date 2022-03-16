@@ -388,10 +388,11 @@ public class DBInteractions {
 			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
 			
 			String sql = "INSERT INTO Employee VALUES (nextval('Employee_id_seq'), "
-					+ "                            ?, ?)";
+					+ "                            ?, ?, ?)";
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, firstName);
 			statement.setString(2, lastName);
+			statement.setString(3, "NotImplemented");
 			statement.execute();
 			return true;
 		}
