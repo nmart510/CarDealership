@@ -339,7 +339,7 @@ public class DBInteractions {
 			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
 			
-			String sql = "INSERT INTO Vehicle VALUES (nextval('Sale_id_seq'), "
+			String sql = "INSERT INTO Vehicle VALUES (nextval('vehicle_id_seq'), "
 					+ "                            ?, ?, ?, ?, ?, ?,?,?)";
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, VIN);
@@ -358,7 +358,48 @@ public class DBInteractions {
 		}
 		return false;
 	}
-	// still need to add makes, models, customers, and employees to their respective tables
+	public boolean createCustomer(String firstName, String lastName, String email, String phone, String address, String city, String zipcode, String state) {
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "INSERT INTO Customer VALUES (nextval('customer_id_seq'), "
+					+ "                            ?, ?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, firstName);
+			statement.setString(2, lastName);
+			statement.setString(3, email);
+		    statement.setString(4, phone);
+		    statement.setString(5, address);
+		    statement.setString(6, city);
+		    statement.setString(7, zipcode);
+		    statement.setString(8, state);
+			statement.execute();
+			return true;
+		}
+		catch(Exception e1) {
+			System.out.println("createCustomer exception: " + e1.toString());
+		}
+		return false;
+	}
+	public boolean createEmployee(String firstName, String lastName) {
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "INSERT INTO Employee VALUES (nextval('Employee_id_seq'), "
+					+ "                            ?, ?)";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, firstName);
+			statement.setString(2, lastName);
+			statement.execute();
+			return true;
+		}
+		catch(Exception e1) {
+			System.out.println("createEmployee exception: " + e1.toString());
+		}
+		return false;
+	}
 	
 		
 }

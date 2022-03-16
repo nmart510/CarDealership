@@ -45,13 +45,11 @@ public class Dealership {
 		int mID = dbi.getModelIdOrAddMM(makeName, modelName, year);
 		return dbi.createVehicle(VIN, mID, trim, msrp, color, stall, odometer, isNew);
 	}
-	public boolean addCustomer() {
-		
-		return false;
+	public boolean addCustomer(String firstName, String lastName, String email, String phone, String address, String city, String zipcode, String state) {
+		return dbi.createCustomer(firstName, lastName, email, phone, address, city, zipcode, state);
 	}
-	public boolean addEmployee() {
-		
-		return false;
+	public boolean addEmployee(String firstName, String lastName) {
+		return dbi.createEmployee(firstName, lastName);
 	}
 	public List<Employee> getEmployees(){
 		return dbi.getEmployees();
