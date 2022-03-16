@@ -69,11 +69,16 @@ public class MainFrame {
 	private JTextField SEText;
 	private JTextField DateText;
 	private JTextField PriceText;
-	private JTextField PurchaseLabel;
 	private JTextField EIDFilterText;
 	private JTextField DateFilterText;
 	private JTextField ColorFilterText;
 	private JTextField MakeFilterText;
+	private JTextField PVIDText;
+	private JTextField PCIDText;
+	private JTextField PEIDText;
+	private JTextField PDateText;
+	private JTextField PPriceText;
+	private JTextField PParkingText;
 	
 	/**
 	 * Launch the application.
@@ -225,16 +230,16 @@ public class MainFrame {
 						if (e.getTrim() == null) {
 							if(e.getParkingStall() == null) {
 								vehicle.addRow(new Object[] {e.getID(), e.getVin(), e.getMake(), e.getModel(), e.getYear(), " ", e.getMSRP(), e.getColor(), " ", 
-										e.getOdometer(), e.isNew()});
+										e.getOdometer(), e.isNew()?"New":"Used"});
 							}
 							else {
 								vehicle.addRow(new Object[] {e.getID(), e.getVin(), e.getMake(), e.getModel(), e.getYear(), " ", e.getMSRP(), e.getColor(), e.getParkingStall(), 
-										e.getOdometer(), e.isNew()});
+										e.getOdometer(), e.isNew()?"New":"Used"});
 							}
 						}
 						else {
 							vehicle.addRow(new Object[] {e.getID(), e.getVin(), e.getMake(), e.getModel(), e.getYear(), e.getTrim(), e.getMSRP(), e.getColor(), e.getParkingStall(), 
-									e.getOdometer(), e.isNew()});
+									e.getOdometer(), e.isNew()?"New":"Used"});
 						}
 					});
 				}
@@ -277,7 +282,7 @@ public class MainFrame {
 					List<Sales> salel = ds.getSales();
 					salel.forEach(e -> {
 						sales.addRow(new Object[] {e.getID(), e.getVehicleID(), e.getCustomerID(), e.getEmployeeID(), e.getDate(), e.getPrice(), 
-								e.isDealerPurchase()});
+								e.isDealerPurchase()?"Purchase":"Sale"});
 					});
 				}
 				catch(Exception e2) {
@@ -501,6 +506,17 @@ public class MainFrame {
 			public void actionPerformed(ActionEvent e) {
 				String firstName, lastName, email, phoneNumber, address, city, zip, state;
 				
+				firstName = FSText.getText();
+				lastName = LSText.getText();
+				email = EmailText.getText();
+				phoneNumber = PhoneText.getText();
+				address = AddressText.getText();
+				city = CityText.getText();
+				zip = ZIPText.getText();
+				state = StateText.getText();
+				
+				ds.addCustomer(firstName, lastName, email, phoneNumber, address, city, zip, state);
+				
 			}
 		});
 		AddCustomerButton.setBounds(10, 279, 245, 23);
@@ -542,8 +558,14 @@ public class MainFrame {
 		JButton AddEmployeeButton = new JButton("Add Employee");
 		AddEmployeeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int employeeID;
+				//int employeeID;
 				String firstName, lastName;
+				
+				//employeeID = Integer.parseInt(EIDText.getText());
+				firstName = EFSText.getText();
+				lastName = ELSText.getText();
+				
+				ds.addEmployee(firstName, lastName);
 			}
 		});
 		AddEmployeeButton.setBounds(10, 279, 245, 23);
@@ -575,11 +597,6 @@ public class MainFrame {
 		PriceLabel.setBounds(10, 124, 62, 14);
 		panel_3.add(PriceLabel);
 		
-		JLabel DealerPLabel = new JLabel("Purchased by Dealership");
-		DealerPLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		DealerPLabel.setBounds(10, 149, 245, 14);
-		panel_3.add(DealerPLabel);
-		
 		SVText = new JTextField();
 		SVText.setBounds(155, 24, 100, 20);
 		panel_3.add(SVText);
@@ -605,11 +622,6 @@ public class MainFrame {
 		PriceText.setBounds(155, 121, 100, 20);
 		panel_3.add(PriceText);
 		
-		PurchaseLabel = new JTextField();
-		PurchaseLabel.setColumns(10);
-		PurchaseLabel.setBounds(77, 174, 112, 20);
-		panel_3.add(PurchaseLabel);
-		
 		JButton MakeSaleButton = new JButton("Make Sale");
 		MakeSaleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -631,7 +643,7 @@ public class MainFrame {
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(null, "Filter Sales Table", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_4.setBounds(10, 627, 265, 245);
+		panel_4.setBounds(10, 602, 265, 245);
 		dealershipWindow.getContentPane().add(panel_4);
 		panel_4.setLayout(null);
 		
@@ -645,6 +657,13 @@ public class MainFrame {
 		EIDFilterText.setColumns(10);
 		
 		JButton EIDFilterButton = new JButton("Filter by Employee");
+		EIDFilterButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+			}
+		});
 		EIDFilterButton.setBounds(10, 49, 244, 23);
 		panel_4.add(EIDFilterButton);
 		
@@ -671,7 +690,7 @@ public class MainFrame {
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new TitledBorder(null, "Filter Vehicles Table", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_5.setBounds(285, 627, 265, 245);
+		panel_5.setBounds(281, 602, 265, 245);
 		dealershipWindow.getContentPane().add(panel_5);
 		panel_5.setLayout(null);
 		
@@ -711,7 +730,7 @@ public class MainFrame {
 					List<Vehicle> v1 = ds.getVehicles(make, color);
 					v1.forEach(p -> {
 						vehicle.addRow(new Object[] {p.getID(), p.getVin(), p.getMake(), p.getModel(), p.getYear(), p.getTrim(), p.getMSRP(), p.getColor(), p.getParkingStall(), 
-								p.getOdometer(), p.isNew()});
+								p.getOdometer(), p.isNew()?"New":"Used"});
 					});
 				}
 				catch(Exception e2) {
@@ -743,7 +762,7 @@ public class MainFrame {
 				vehicle.addRow(new Object[] {"Vehicle ID", "VIN","Make", "Model", "Year", "Trim", "MSRP", "Color", "Parking Stall", "Odometer", "New"});
 			}
 		});
-		ClearVehicles.setBounds(560, 627, 153, 23);
+		ClearVehicles.setBounds(271, 18, 153, 23);
 		dealershipWindow.getContentPane().add(ClearVehicles);
 		
 		/**
@@ -758,7 +777,7 @@ public class MainFrame {
 				employee.addRow(new Object[] {"Employee ID", "First Name", "Last Name"});
 			}
 		});
-		ClearEmployees.setBounds(559, 661, 154, 23);
+		ClearEmployees.setBounds(1510, 593, 154, 23);
 		dealershipWindow.getContentPane().add(ClearEmployees);
 		
 		/**
@@ -773,7 +792,7 @@ public class MainFrame {
 				sales.addRow(new Object[] {"Sale ID", "Vehicle ID", "Customer ID", "Employee ID", "Date", "Price", "Purchased"});
 			}
 		});
-		ClearSales.setBounds(559, 700, 154, 23);
+		ClearSales.setBounds(1510, 303, 154, 23);
 		dealershipWindow.getContentPane().add(ClearSales);
 		
 		/**
@@ -788,8 +807,90 @@ public class MainFrame {
 				customer.addRow(new Object[] {"Customer ID", "First Name", "Last Name", "Email", "Phone Number", "Address", "City", "Zip Code", "State"});
 			}
 		});
-		ClearCustomers.setBounds(560, 734, 154, 23);
+		ClearCustomers.setBounds(1510, 18, 154, 23);
 		dealershipWindow.getContentPane().add(ClearCustomers);
+		
+		JPanel panel_3_1 = new JPanel();
+		panel_3_1.setLayout(null);
+		panel_3_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Purchase a car", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_3_1.setBounds(819, 602, 265, 313);
+		dealershipWindow.getContentPane().add(panel_3_1);
+		
+		JLabel PVIDLabel = new JLabel("Vehicle ID");
+		PVIDLabel.setBounds(10, 27, 62, 14);
+		panel_3_1.add(PVIDLabel);
+		
+		JLabel PCIDLabel = new JLabel("Customer ID");
+		PCIDLabel.setBounds(10, 50, 135, 14);
+		panel_3_1.add(PCIDLabel);
+		
+		JLabel PEIDLabel = new JLabel("Employee ID");
+		PEIDLabel.setBounds(10, 75, 135, 14);
+		panel_3_1.add(PEIDLabel);
+		
+		JLabel PDateLabel = new JLabel("Date ");
+		PDateLabel.setBounds(10, 99, 62, 14);
+		panel_3_1.add(PDateLabel);
+		
+		JLabel PPriceLabel = new JLabel("Price");
+		PPriceLabel.setBounds(10, 124, 62, 14);
+		panel_3_1.add(PPriceLabel);
+		
+		JLabel PParkingLabel = new JLabel("Parking Stall");
+		PParkingLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		PParkingLabel.setBounds(10, 149, 135, 14);
+		panel_3_1.add(PParkingLabel);
+		
+		PVIDText = new JTextField();
+		PVIDText.setColumns(10);
+		PVIDText.setBounds(155, 24, 100, 20);
+		panel_3_1.add(PVIDText);
+		
+		PCIDText = new JTextField();
+		PCIDText.setColumns(10);
+		PCIDText.setBounds(155, 47, 100, 20);
+		panel_3_1.add(PCIDText);
+		
+		PEIDText = new JTextField();
+		PEIDText.setColumns(10);
+		PEIDText.setBounds(155, 72, 100, 20);
+		panel_3_1.add(PEIDText);
+		
+		PDateText = new JTextField();
+		PDateText.setColumns(10);
+		PDateText.setBounds(155, 96, 100, 20);
+		panel_3_1.add(PDateText);
+		
+		PPriceText = new JTextField();
+		PPriceText.setColumns(10);
+		PPriceText.setBounds(155, 121, 100, 20);
+		panel_3_1.add(PPriceText);
+		
+		PParkingText = new JTextField();
+		PParkingText.setColumns(10);
+		PParkingText.setBounds(155, 149, 100, 20);
+		panel_3_1.add(PParkingText);
+		
+		JButton btnPurchaseCar = new JButton("Purchase Car");
+		btnPurchaseCar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int vehicleID, customerID, employeeID;
+				String saleDate, parkingStall;
+				double price;
+				
+				vehicleID = Integer.parseInt(PVIDText.getText());
+				customerID = Integer.parseInt(PCIDText.getText());
+				employeeID = Integer.parseInt(PEIDText.getText());
+				saleDate = PDateText.getText();
+				price = Double.parseDouble(PPriceText.getText());
+				parkingStall = PParkingText.getText();
+				
+				ds.buyCar(vehicleID, customerID, employeeID, saleDate, price, parkingStall);
+				
+			}
+		});
+		btnPurchaseCar.setBounds(10, 279, 245, 23);
+		panel_3_1.add(btnPurchaseCar);
 		
 	}
 }
