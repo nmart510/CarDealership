@@ -111,7 +111,7 @@ public class DBInteractions {
 			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
 			
-			String sql = "SELECT * FROM Vehicle WHERE parkingstall NOT = ? OR parkingstall IS NOT NULL";
+			String sql = "SELECT * FROM Vehicle WHERE NOT parkingstall = ? OR parkingstall IS NOT NULL";
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, "");
 			rs = statement.executeQuery();
