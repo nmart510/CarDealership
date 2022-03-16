@@ -111,7 +111,7 @@ public class DBInteractions {
 			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
 			
-			String sql = "SELECT * FROM Vehicle WHERE parkingstall = ? OR parkingstall IS NULL";
+			String sql = "SELECT * FROM Vehicle WHERE parkingstall NOT = ? OR parkingstall IS NOT NULL";
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, "");
 			rs = statement.executeQuery();
@@ -496,7 +496,6 @@ public class DBInteractions {
 		try {
 			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
-			
 			String sql = "SELECT * FROM Sale WHERE date >= ? AND date <= ?";
 			PreparedStatement statement = con.prepareStatement(sql);
 			rs = statement.executeQuery();
