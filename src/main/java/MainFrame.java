@@ -61,7 +61,6 @@ public class MainFrame {
 	private JTextField CityText;
 	private JTextField ZIPText;
 	private JTextField StateText;
-	private JTextField EIDText;
 	private JTextField EFSText;
 	private JTextField ELSText;
 	private JTextField SVText;
@@ -79,6 +78,7 @@ public class MainFrame {
 	private JTextField PDateText;
 	private JTextField PPriceText;
 	private JTextField PParkingText;
+	private JTextField Date2FilterText;
 	
 	/**
 	 * Launch the application.
@@ -528,31 +528,22 @@ public class MainFrame {
 		dealershipWindow.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel EIDLabel = new JLabel("Employee ID");
-		EIDLabel.setBounds(10, 27, 135, 14);
-		panel_2.add(EIDLabel);
-		
 		JLabel EFSLabel = new JLabel("First Name");
-		EFSLabel.setBounds(10, 52, 68, 14);
+		EFSLabel.setBounds(10, 29, 68, 14);
 		panel_2.add(EFSLabel);
 		
 		JLabel ELSLabel = new JLabel("Last Name");
-		ELSLabel.setBounds(10, 77, 68, 14);
+		ELSLabel.setBounds(10, 54, 68, 14);
 		panel_2.add(ELSLabel);
-		
-		EIDText = new JTextField();
-		EIDText.setBounds(155, 24, 100, 20);
-		panel_2.add(EIDText);
-		EIDText.setColumns(10);
 		
 		EFSText = new JTextField();
 		EFSText.setColumns(10);
-		EFSText.setBounds(155, 49, 100, 20);
+		EFSText.setBounds(155, 26, 100, 20);
 		panel_2.add(EFSText);
 		
 		ELSText = new JTextField();
 		ELSText.setColumns(10);
-		ELSText.setBounds(155, 74, 100, 20);
+		ELSText.setBounds(155, 51, 100, 20);
 		panel_2.add(ELSText);
 		
 		JButton AddEmployeeButton = new JButton("Add Employee");
@@ -643,7 +634,7 @@ public class MainFrame {
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new TitledBorder(null, "Filter Sales Table", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_4.setBounds(10, 602, 265, 245);
+		panel_4.setBounds(10, 602, 265, 313);
 		dealershipWindow.getContentPane().add(panel_4);
 		panel_4.setLayout(null);
 		
@@ -659,7 +650,23 @@ public class MainFrame {
 		JButton EIDFilterButton = new JButton("Filter by Employee");
 		EIDFilterButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int employeeID;
 				
+				employeeID = Integer.parseInt(EIDFilterText.getText());
+				
+				
+				sales.setRowCount(0);
+				sales.addRow(new Object[] {"Sale ID", "Vehicle ID", "Customer ID", "Employee ID", "Date", "Price", "Purchased"});
+				try { //
+					List<Sales> salel = ds.getSales(employeeID);
+					salel.forEach(l -> {
+						sales.addRow(new Object[] {l.getID(), l.getVehicleID(), l.getCustomerID(), l.getEmployeeID(), l.getDate(), l.getPrice(), 
+								l.isDealerPurchase()?"Purchase":"Sale"});
+					});
+				}
+				catch(Exception e2) {
+					System.out.println(e2.toString());
+				}
 				
 				
 			}
@@ -668,25 +675,93 @@ public class MainFrame {
 		panel_4.add(EIDFilterButton);
 		
 		JButton SoldFilterButton = new JButton("Filter by Dealership buys");
+		SoldFilterButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+						
+				sales.setRowCount(0);
+				sales.addRow(new Object[] {"Sale ID", "Vehicle ID", "Customer ID", "Employee ID", "Date", "Price", "Purchased"});
+				try { //
+					List<Sales> salel = ds.getSales(true);
+					salel.forEach(l -> {
+						sales.addRow(new Object[] {l.getID(), l.getVehicleID(), l.getCustomerID(), l.getEmployeeID(), l.getDate(), l.getPrice(), 
+								l.isDealerPurchase()?"Purchase":"Sale"});
+					});
+				}
+				catch(Exception e2) {
+					System.out.println(e2.toString());
+				}
+				
+				
+			}
+		});
 		SoldFilterButton.setBounds(11, 92, 244, 23);
 		panel_4.add(SoldFilterButton);
 		
 		JButton boughtFilterButton = new JButton("Filter by Dealership sells");
+		boughtFilterButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				sales.setRowCount(0);
+				sales.addRow(new Object[] {"Sale ID", "Vehicle ID", "Customer ID", "Employee ID", "Date", "Price", "Purchased"});
+				try { //
+					List<Sales> salel = ds.getSales(false);
+					salel.forEach(l -> {
+						sales.addRow(new Object[] {l.getID(), l.getVehicleID(), l.getCustomerID(), l.getEmployeeID(), l.getDate(), l.getPrice(), 
+								l.isDealerPurchase()?"Purchase":"Sale"});
+					});
+				}
+				catch(Exception e2) {
+					System.out.println(e2.toString());
+				}
+			}
+		});
 		boughtFilterButton.setBounds(11, 136, 244, 23);
 		panel_4.add(boughtFilterButton);
 		
-		JLabel lblDate = new JLabel("Date");
-		lblDate.setBounds(10, 178, 79, 14);
+		JLabel lblDate = new JLabel("Date: From");
+		lblDate.setBounds(10, 220, 79, 14);
 		panel_4.add(lblDate);
 		
 		DateFilterText = new JTextField();
 		DateFilterText.setColumns(10);
-		DateFilterText.setBounds(155, 175, 100, 20);
+		DateFilterText.setBounds(155, 217, 100, 20);
 		panel_4.add(DateFilterText);
 		
 		JButton DateFilterButton = new JButton("Filter by Date");
-		DateFilterButton.setBounds(10, 203, 244, 23);
+		DateFilterButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String Date1, Date2;
+				
+				Date1 = DateFilterText.getText();
+				Date2 = Date2FilterText.getText();
+				
+				sales.setRowCount(0);
+				sales.addRow(new Object[] {"Sale ID", "Vehicle ID", "Customer ID", "Employee ID", "Date", "Price", "Purchased"});
+				try { //
+					List<Sales> salel = ds.getSales(Date1, Date2);
+					salel.forEach(l -> {
+						sales.addRow(new Object[] {l.getID(), l.getVehicleID(), l.getCustomerID(), l.getEmployeeID(), l.getDate(), l.getPrice(), 
+								l.isDealerPurchase()?"Purchase":"Sale"});
+					});
+				}
+				catch(Exception e2) {
+					System.out.println(e2.toString());
+				}
+				
+			}
+		});
+		DateFilterButton.setBounds(11, 279, 244, 23);
 		panel_4.add(DateFilterButton);
+		
+		JLabel lblDateTo = new JLabel("Date: To");
+		lblDateTo.setBounds(10, 245, 79, 14);
+		panel_4.add(lblDateTo);
+		
+		Date2FilterText = new JTextField();
+		Date2FilterText.setColumns(10);
+		Date2FilterText.setBounds(155, 248, 100, 20);
+		panel_4.add(Date2FilterText);
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new TitledBorder(null, "Filter Vehicles Table", TitledBorder.LEADING, TitledBorder.TOP, null, null));
