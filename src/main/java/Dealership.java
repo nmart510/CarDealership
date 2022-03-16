@@ -30,7 +30,7 @@ public class Dealership {
 			return dbi.getVehiclesByMakeAndColor(makeName, color);
 	}
 	public boolean sellCar(int vehicleID, int customerID, int employeeID, String saleDate, double price) {
-		if(dbi.getVehicleByID(vehicleID).getParkingStall() == "")
+		if(dbi.getVehicleByID(vehicleID).getParkingStall().equals(""))
 			return false;
 		boolean result = dbi.createSale(vehicleID, customerID, employeeID, saleDate, price, false);
 		if (result)
@@ -38,7 +38,7 @@ public class Dealership {
 		return result;
 	}
 	public boolean buyCar(int vehicleID, int customerID, int employeeID, String saleDate, double price, String stall) {
-		if(dbi.getVehicleByID(vehicleID).getParkingStall() != "")
+		if(dbi.getVehicleByID(vehicleID).getParkingStall().equals("") == false)
 			return false;
 		boolean result = dbi.createSale(vehicleID, customerID, employeeID, saleDate, price, true);
 		if (result)
