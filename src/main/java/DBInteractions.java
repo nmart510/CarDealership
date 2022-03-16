@@ -400,6 +400,70 @@ public class DBInteractions {
 		}
 		return false;
 	}
+	public List<Sales> getSalesbyEmployee(int eID) {
+		List<Sales> sl = new ArrayList<Sales>();
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "SELECT * FROM Sale WHERE employeeid = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, eID);
+			rs = statement.executeQuery();
+			while (rs.next()) {
+				sl.add(new Sales(rs.getInt("ID"), rs.getInt("vehicleID"), rs.getInt("customerID"), rs.getInt("employeeID"), rs.getString("date"), 
+						rs.getDouble("price"), rs.getBoolean("dealerpurchase")));
+			}
+			return sl;
+		}
+		catch(Exception e1) {
+			System.out.println(e1.toString());
+		}
+		return null;
+	}
+	public List<Sales> getSalesByPurchase(boolean dealerPurchase) {
+		List<Sales> sl = new ArrayList<Sales>();
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "SELECT * FROM Sale WHERE dealerpurchase = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setBoolean(1, dealerPurchase);
+			rs = statement.executeQuery();
+			while (rs.next()) {
+				sl.add(new Sales(rs.getInt("ID"), rs.getInt("vehicleID"), rs.getInt("customerID"), rs.getInt("employeeID"), rs.getString("date"), 
+						rs.getDouble("price"), rs.getBoolean("dealerpurchase")));
+			}
+			return sl;
+		}
+		catch(Exception e1) {
+			System.out.println(e1.toString());
+		}
+		return null;
+	}
+	public List<Sales> getSalesByDate(String startDate, String endDate) {
+		List<Sales> sl = new ArrayList<Sales>();
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "SELECT * FROM Sale WHERE date >= ? AND date <= ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			rs = statement.executeQuery();
+			statement.setDate(1, convertStringToDate(startDate));
+			statement.setDate(2, convertStringToDate(endDate));
+			while (rs.next()) {
+				sl.add(new Sales(rs.getInt("ID"), rs.getInt("vehicleID"), rs.getInt("customerID"), rs.getInt("employeeID"), rs.getString("date"), 
+						rs.getDouble("price"), rs.getBoolean("dealerpurchase")));
+			}
+			return sl;
+		}
+		catch(Exception e1) {
+			System.out.println(e1.toString());
+		}
+		return null;
+	}
 	
 		
 }

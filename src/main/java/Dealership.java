@@ -41,6 +41,15 @@ public class Dealership {
 	public List<Sales> getSales() {
 		return dbi.getSales();
 	}
+	public List<Sales> getSales(int eID) {
+		return dbi.getSalesbyEmployee(eID);
+	}
+	public List<Sales> getSales(boolean dealerPurchase) {
+		return dbi.getSalesByPurchase(dealerPurchase);
+	}
+	public List<Sales> getSales(String startDate, String endDate) {
+		return dbi.getSalesByDate(startDate, endDate);
+	}
 	public boolean addVehicle(String VIN, String makeName, String modelName, int year, String trim, double msrp, String color, String stall, int odometer, boolean isNew) {
 		int mID = dbi.getModelIdOrAddMM(makeName, modelName, year);
 		return dbi.createVehicle(VIN, mID, trim, msrp, color, stall, odometer, isNew);
@@ -54,24 +63,8 @@ public class Dealership {
 	public List<Employee> getEmployees(){
 		return dbi.getEmployees();
 	}
-	public Employee getEmployeeByID(int ID) {
-		
-		return null;
-	}
-	public Employee getEmployeeByName(String name) {
-		
-		return null;
-	}
 	public List<Customer> getCustomers(){
 		return dbi.getCustomers();
-	}
-	public Customer getCustomerByID(int ID) {
-		
-		return null;
-	}
-	public Customer getCustomerByName(String firstName, String lastName) {
-		
-		return null;
 	}
 	public boolean addMakeModel(String makeName, String modelName, int year) {
 		return (dbi.getModelIdOrAddMM(makeName, modelName, year) > 0); 
