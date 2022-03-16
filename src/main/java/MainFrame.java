@@ -340,6 +340,31 @@ public class MainFrame {
 		panel.add(ModelLabel);
 		
 		JButton AddCarButton = new JButton("Add Car");
+		AddCarButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int vin, odometer, year;
+				String modelName, trim, color, stall, makeName;
+				double msrp;
+				boolean isNew;
+				
+				vin = VINText.getComponentCount();
+				makeName = MakeText.getText();
+				modelName = ModelText.getText();
+				year = YearText.getComponentCount();
+				trim = TrimText.getText();
+				msrp = MSRPText.getComponentCount();
+				color = ColorText.getText();
+				stall = ParkingText.getText();
+				odometer = OdometerText.getComponentCount();
+				if(isNewText.getText().equalsIgnoreCase("true")) {
+					isNew = true;
+				}
+				else {
+					isNew = false;
+				}
+				ds.addVehicle(vin, makeName, modelName, year, trim, msrp, color, stall, odometer, isNew);
+			}
+		});
 		AddCarButton.setBounds(10, 279, 245, 23);
 		panel.add(AddCarButton);
 		
