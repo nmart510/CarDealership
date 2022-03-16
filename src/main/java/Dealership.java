@@ -20,9 +20,9 @@ public class Dealership {
 	}
 	public List<Vehicle> getVehicles(String makeName, String color) {
 		if (makeName == null)
-			return dbi.getVehiclesByMakeAndColor("*", color);
+			return dbi.getVehiclesByColor(color);
 		else if (color == null)
-			return dbi.getVehiclesByMakeAndColor(makeName, "*");
+			return dbi.getVehiclesByMake(makeName);
 		else
 			return dbi.getVehiclesByMakeAndColor(makeName, color);
 	}
