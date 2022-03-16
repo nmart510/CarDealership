@@ -60,8 +60,6 @@ CREATE TABLE Vehicle (
 	Msrp 			NUMERIC(8,2) NOT NULL, 
 	Color			VARCHAR(20)  NOT NULL, 
 	Parkingstall 	VARCHAR(4)   UNIQUE, 
-	HasRecalls 		BOOLEAN      NOT NULL, 
-	RecallNotes 	VARCHAR(120), 
 	Odometer 		INTEGER      NOT NULL, 
 	IsNew			BOOLEAN      NOT NULL, 
 	
