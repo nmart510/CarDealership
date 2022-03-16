@@ -497,6 +497,12 @@ public class MainFrame {
 		panel_1.add(StateText);
 		
 		JButton AddCustomerButton = new JButton("Add Customer");
+		AddCustomerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String firstName, lastName, email, phoneNumber, address, city, zip, state;
+				
+			}
+		});
 		AddCustomerButton.setBounds(10, 279, 245, 23);
 		panel_1.add(AddCustomerButton);
 		
@@ -534,6 +540,12 @@ public class MainFrame {
 		panel_2.add(ELSText);
 		
 		JButton AddEmployeeButton = new JButton("Add Employee");
+		AddEmployeeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int employeeID;
+				String firstName, lastName;
+			}
+		});
 		AddEmployeeButton.setBounds(10, 279, 245, 23);
 		panel_2.add(AddEmployeeButton);
 		
@@ -693,8 +705,8 @@ public class MainFrame {
 				if(make.equals("")) {
 					make = null;
 				}
-				System.out.println(color);
-				System.out.println(make);
+				vehicle.setRowCount(0);
+				vehicle.addRow(new Object[] {"Vehicle ID", "VIN","Make", "Model", "Year", "Trim", "MSRP", "Color", "Parking Stall", "Odometer", "New"});
 				try {
 					List<Vehicle> v1 = ds.getVehicles(make, color);
 					v1.forEach(p -> {
