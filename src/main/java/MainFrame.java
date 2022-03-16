@@ -342,20 +342,20 @@ public class MainFrame {
 		JButton AddCarButton = new JButton("Add Car");
 		AddCarButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int vin, odometer, year;
-				String modelName, trim, color, stall, makeName;
+				int odometer, year;
+				String vin, modelName, trim, color, stall, makeName;
 				double msrp;
 				boolean isNew;
 				
-				vin = VINText.getComponentCount();
+				vin = VINText.getText();
 				makeName = MakeText.getText();
 				modelName = ModelText.getText();
-				year = YearText.getComponentCount();
+				year = Integer.parseInt(YearText.getText());
 				trim = TrimText.getText();
-				msrp = MSRPText.getComponentCount();
+				msrp = Double.parseDouble(MSRPText.getText());
 				color = ColorText.getText();
 				stall = ParkingText.getText();
-				odometer = OdometerText.getComponentCount();
+				odometer = Integer.parseInt(OdometerText.getText());
 				if(isNewText.getText().equalsIgnoreCase("true")) {
 					isNew = true;
 				}
@@ -667,6 +667,28 @@ public class MainFrame {
 		panel_5.add(MakeFilterText);
 		
 		JButton VehicleFilterButton = new JButton("Filter Vehicles Table");
+		VehicleFilterButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String color, make;
+				color = ColorFilterText.getText();
+				make = MakeFilterText.getText();
+				if(color.equals("")) {
+					color = null;
+				}
+				if(make.equals("")) {
+					make = null;
+				}
+				System.out.println(color);
+				System.out.println(make);
+				try {
+					List<Vehicle> v1 = ds.getVehicles(make, color);
+					
+				}
+				catch(Exception e2) {
+					System.out.println(e2.toString());
+				}
+			}
+		});
 		VehicleFilterButton.setBounds(10, 77, 245, 23);
 		panel_5.add(VehicleFilterButton);
 		
