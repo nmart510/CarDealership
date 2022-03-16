@@ -820,6 +820,19 @@ public class MainFrame {
 		OnPremisButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				vehicle.setRowCount(0);
+				vehicle.addRow(new Object[] {"Vehicle ID", "VIN","Make", "Model", "Year", "Trim", "MSRP", "Color", "Parking Stall", "Odometer", "New"});
+				try {
+					List<Vehicle> v1 = ds.getDealerVehicles();
+					v1.forEach(p -> {
+						vehicle.addRow(new Object[] {p.getID(), p.getVin(), p.getMake(), p.getModel(), p.getYear(), p.getTrim(), p.getMSRP(), p.getColor(), p.getParkingStall(), 
+								p.getOdometer(), p.isNew()?"New":"Used"});
+					});
+				}
+				catch(Exception e2) {
+					System.out.println(e2.toString());
+				}
+				
 			}
 		});
 		OnPremisButton.setBounds(10, 111, 245, 23);
