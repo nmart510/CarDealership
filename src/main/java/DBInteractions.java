@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,9 @@ public class DBInteractions {
 //			System.out.print(vh1.toString() );
 		
 	}
-	
+	private java.sql.Date convertStringToDate(String date) {
+		return java.sql.Date.valueOf(date);
+	}
 	public List<Employee> getEmployees() {
 		List<Employee> el = new ArrayList<Employee>();
 		try {
@@ -244,7 +247,7 @@ public class DBInteractions {
 			statement.setInt(1, vId);
 			statement.setInt(2, cId);
 			statement.setInt(3, eId);
-		    statement.setString(4, saleDate);
+		    statement.setDate(4, convertStringToDate(saleDate));
 		    statement.setDouble(5, price);
 		    statement.setBoolean(6, purchase);
 			statement.execute();
