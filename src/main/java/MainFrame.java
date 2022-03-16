@@ -638,8 +638,73 @@ public class MainFrame {
 		panel_5.add(VehicleFilterButton);
 		
 		JButton OnPremisButton = new JButton("Show Vehicles at Dealership");
+		OnPremisButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		OnPremisButton.setBounds(10, 111, 245, 23);
 		panel_5.add(OnPremisButton);
+		
+		/**
+		 * Button to clear vehicles table
+		 * Keeps first row
+		 */
+		
+		JButton ClearVehicles = new JButton("Clear Vehicles");
+		ClearVehicles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vehicle.setRowCount(0);
+				vehicle.addRow(new Object[] {"Vehicle ID", "VIN","Make", "Model", "Year", "Trim", "MSRP", "Color", "Parking Stall", "Odometer", "New"});
+			}
+		});
+		ClearVehicles.setBounds(560, 627, 153, 23);
+		dealershipWindow.getContentPane().add(ClearVehicles);
+		
+		/**
+		 * Button to clear employees table
+		 * Keeps first row
+		 */
+		
+		JButton ClearEmployees = new JButton("Clear Employees");
+		ClearEmployees.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				employee.setRowCount(0);
+				employee.addRow(new Object[] {"Employee ID", "First Name", "Last Name"});
+			}
+		});
+		ClearEmployees.setBounds(559, 661, 154, 23);
+		dealershipWindow.getContentPane().add(ClearEmployees);
+		
+		/**
+		 * Button to clear sales table
+		 * Keeps first row
+		 */
+		
+		JButton ClearSales = new JButton("Clear Sales"); 
+		ClearSales.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sales.setRowCount(0);
+				sales.addRow(new Object[] {"Sale ID", "Vehicle ID", "Customer ID", "Employee ID", "Date", "Price", "Purchased"});
+			}
+		});
+		ClearSales.setBounds(559, 700, 154, 23);
+		dealershipWindow.getContentPane().add(ClearSales);
+		
+		/**
+		 * Button to clear customers table
+		 * Keeps first row
+		 */
+		
+		JButton ClearCustomers = new JButton("Clear Customers");
+		ClearCustomers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				customer.setRowCount(0);
+				customer.addRow(new Object[] {"Customer ID", "First Name", "Last Name", "Email", "Phone Number", "Address", "City", "Zip Code", "State"});
+			}
+		});
+		ClearCustomers.setBounds(560, 734, 154, 23);
+		dealershipWindow.getContentPane().add(ClearCustomers);
 		
 	}
 }
