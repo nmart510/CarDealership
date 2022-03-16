@@ -599,6 +599,21 @@ public class MainFrame {
 		panel_3.add(PurchaseLabel);
 		
 		JButton MakeSaleButton = new JButton("Make Sale");
+		MakeSaleButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int vehicleID, customerID, employeeID;
+				String saleDate;
+				double price;
+				
+				vehicleID = Integer.parseInt(SVText.getText());
+				customerID = Integer.parseInt(SCText.getText());
+				employeeID = Integer.parseInt(SEText.getText());
+				saleDate = DateText.getText();
+				price = Double.parseDouble(PriceText.getText());
+				
+				ds.sellCar(vehicleID, customerID, employeeID, saleDate, price);
+			}
+		});
 		MakeSaleButton.setBounds(10, 279, 245, 23);
 		panel_3.add(MakeSaleButton);
 		
@@ -682,7 +697,10 @@ public class MainFrame {
 				System.out.println(make);
 				try {
 					List<Vehicle> v1 = ds.getVehicles(make, color);
-					
+					v1.forEach(p -> {
+						vehicle.addRow(new Object[] {p.getID(), p.getVin(), p.getMake(), p.getModel(), p.getYear(), p.getTrim(), p.getMSRP(), p.getColor(), p.getParkingStall(), 
+								p.getOdometer(), p.isNew()});
+					});
 				}
 				catch(Exception e2) {
 					System.out.println(e2.toString());
