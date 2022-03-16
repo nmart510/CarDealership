@@ -128,6 +128,8 @@ public class MainFrame {
 		JButton printEmployeesButton = new JButton("Print All Employees");
 		printEmployeesButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	
+				employee.setRowCount(0);
+				employee.addRow(new Object[] {"Employee ID", "First Name", "Last Name"});
 				try {
 					List<Employee> empl = ds.getEmployees();
 					empl.forEach(e -> {
@@ -169,6 +171,8 @@ public class MainFrame {
 		JButton printCustomersButton = new JButton("Print All Customers");
 		printCustomersButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	
+				customer.setRowCount(0);
+				customer.addRow(new Object[] {"Customer ID", "First Name", "Last Name", "Email", "Phone Number", "Address", "City", "Zip Code", "State"});
 				try { //
 					List<Customer> custl = ds.getCustomers();
 					custl.forEach(e -> {
@@ -213,6 +217,8 @@ public class MainFrame {
 		JButton printVehiclesButton = new JButton("Print All Vehicles");
 		printVehiclesButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	
+				vehicle.setRowCount(0);
+				vehicle.addRow(new Object[] {"Vehicle ID", "VIN","Make", "Model", "Year", "Trim", "MSRP", "Color", "Parking Stall", "Odometer", "New"});
 				try { //
 					List<Vehicle> vehl = ds.getVehicles();
 					vehl.forEach(e -> {
@@ -265,6 +271,8 @@ public class MainFrame {
 		JButton printsalesButton = new JButton("Print All Sales");
 		printsalesButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	
+				sales.setRowCount(0);
+				sales.addRow(new Object[] {"Sale ID", "Vehicle ID", "Customer ID", "Employee ID", "Date", "Price", "Purchased"});
 				try { //
 					List<Sales> salel = ds.getSales();
 					salel.forEach(e -> {
