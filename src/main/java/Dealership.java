@@ -15,16 +15,20 @@ public class Dealership {
 		// TODO Auto-generated method stub
 
 	}
-	boolean login(String fname, String lname, String pass){
-		
-		
-		return false;
-	}
 	public List<Vehicle> getVehicles() {
 		return dbi.getVehicles();
-	} //Need to overload
-	public boolean sellCar() {
-		
+	}
+	public List<Vehicle> getVehicles(String makeName, String color) {
+		if (makeName == null)
+			return dbi.getVehiclesByMakeAndColor("*", color);
+		else if (color == null)
+			return dbi.getVehiclesByMakeAndColor(makeName, "*");
+		else
+			return dbi.getVehiclesByMakeAndColor(makeName, color);
+	}
+	public boolean sellCar(int vehicleID, int customerID, int employeeID, String saleDate, double price) {
+		dbi.createSale(vehicleID, customerID, employeeID, saleDate, price, false);
+		dbi.changeStall(vehicleID, "");
 		return false;
 	}
 	public boolean buyCar() {
@@ -34,9 +38,9 @@ public class Dealership {
 	public List<Sales> getSales() {
 		return dbi.getSales();
 	}
-	public boolean addVehicle() {
-		
-		return false;
+	public boolean addVehicle(int VIN, String makeName, String modelName, int year, String trim, double msrp, String color, String stall, int odometer, boolean isNew) {
+		int mID = dbi.getModelIdOrAddMM(makeName, modelName, year);
+		return dbi.createVehicle(VIN, mID, trim, msrp, color, stall, odometer, isNew);
 	}
 	public boolean addCustomer() {
 		
@@ -68,8 +72,7 @@ public class Dealership {
 		
 		return null;
 	}
-	public boolean checkPassword(String pass) {
-		
-		return false;
+	public boolean addMakeModel(String makeName, String modelName, int year) {
+		return (dbi.getModelIdOrAddMM(makeName, modelName, year) > 0); 
 	}
 }

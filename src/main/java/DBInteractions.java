@@ -28,12 +28,12 @@ public class DBInteractions {
 	public static void main(String[] args) {
 		//Attempted to see what was wrong with vehicles but wont even return a string
 		
-		List<Vehicle> vh1 = new ArrayList<Vehicle>();
-		DBInteractions d = new DBInteractions();
-		
-		vh1 = d.getVehicles();
-		
-			System.out.print(vh1.toString() );
+//		List<Vehicle> vh1 = new ArrayList<Vehicle>();
+//		DBInteractions d = new DBInteractions();
+//		
+//		vh1 = d.getVehicles();
+//		
+//			System.out.print(vh1.toString() );
 		
 	}
 	
@@ -101,59 +101,59 @@ public class DBInteractions {
 		}
 		return null;
 	}
-	public List<Vehicle> getVehiclesByColor(String color) {
-		System.out.println("Getting Vehicles");
-		List<Vehicle> vl = new ArrayList<Vehicle>();
-		try {
-			Class.forName("org.postgresql.Driver");
-			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
-			
-			String sql = "SELECT * FROM Vehicle WHERE Color ILIKE ?%";
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setString(1, color);
-			rs = statement.executeQuery();
-			while (rs.next()) {
-				String[] mm = getMakeModel(rs.getInt("modelID"));
-				System.out.println(mm[0] + "   " + mm[1] + "   " + mm[2]);
-				
-				vl.add(new Vehicle(rs.getInt("ID"), rs.getString("vin"), mm[1], mm[0], Integer.parseInt(mm[2]), rs.getString("trim"), rs.getDouble("msrp"), 
-						rs.getString("color"), rs.getString("parkingstall"), rs.getInt("odometer"),rs.getBoolean("isnew")));
-			}
-			return vl;
-		}
-		catch(Exception e1) {
-			System.out.println(e1.toString());
-		}
-		return null;
-	}
-	public List<Vehicle> getVehiclesByMake(String Make) {
-		System.out.println("Getting Vehicles");
-		List<Vehicle> vl = new ArrayList<Vehicle>();
-		try {
-			Class.forName("org.postgresql.Driver");
-			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
-			
-			String sql = "SELECT * FROM Vehicle"
-					+ "               JOIN Model ON (modelid =model.id)"
-					+ "               JOIN Make ON (make.id = makeid)"
-					+ "   WHERE Make.name ILIKE ? %";
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setString(1, Make);
-			rs = statement.executeQuery();
-			while (rs.next()) {
-				String[] mm = getMakeModel(rs.getInt("modelID"));
-				System.out.println(mm[0] + "   " + mm[1] + "   " + mm[2]);
-				
-				vl.add(new Vehicle(rs.getInt("ID"), rs.getString("vin"), mm[1], mm[0], Integer.parseInt(mm[2]), rs.getString("trim"), rs.getDouble("msrp"), 
-						rs.getString("color"), rs.getString("parkingstall"), rs.getInt("odometer"),rs.getBoolean("isnew")));
-			}
-			return vl;
-		}
-		catch(Exception e1) {
-			System.out.println(e1.toString());
-		}
-		return null;
-	}
+//	public List<Vehicle> getVehiclesByColor(String color) {
+//		System.out.println("Getting Vehicles");
+//		List<Vehicle> vl = new ArrayList<Vehicle>();
+//		try {
+//			Class.forName("org.postgresql.Driver");
+//			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+//			
+//			String sql = "SELECT * FROM Vehicle WHERE Color ILIKE ?%";
+//			PreparedStatement statement = con.prepareStatement(sql);
+//			statement.setString(1, color);
+//			rs = statement.executeQuery();
+//			while (rs.next()) {
+//				String[] mm = getMakeModel(rs.getInt("modelID"));
+//				System.out.println(mm[0] + "   " + mm[1] + "   " + mm[2]);
+//				
+//				vl.add(new Vehicle(rs.getInt("ID"), rs.getString("vin"), mm[1], mm[0], Integer.parseInt(mm[2]), rs.getString("trim"), rs.getDouble("msrp"), 
+//						rs.getString("color"), rs.getString("parkingstall"), rs.getInt("odometer"),rs.getBoolean("isnew")));
+//			}
+//			return vl;
+//		}
+//		catch(Exception e1) {
+//			System.out.println(e1.toString());
+//		}
+//		return null;
+//	}
+//	public List<Vehicle> getVehiclesByMake(String Make) {
+//		System.out.println("Getting Vehicles");
+//		List<Vehicle> vl = new ArrayList<Vehicle>();
+//		try {
+//			Class.forName("org.postgresql.Driver");
+//			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+//			
+//			String sql = "SELECT * FROM Vehicle"
+//					+ "               JOIN Model ON (modelid =model.id)"
+//					+ "               JOIN Make ON (make.id = makeid)"
+//					+ "   WHERE Make.name ILIKE ? %";
+//			PreparedStatement statement = con.prepareStatement(sql);
+//			statement.setString(1, Make);
+//			rs = statement.executeQuery();
+//			while (rs.next()) {
+//				String[] mm = getMakeModel(rs.getInt("modelID"));
+//				System.out.println(mm[0] + "   " + mm[1] + "   " + mm[2]);
+//				
+//				vl.add(new Vehicle(rs.getInt("ID"), rs.getString("vin"), mm[1], mm[0], Integer.parseInt(mm[2]), rs.getString("trim"), rs.getDouble("msrp"), 
+//						rs.getString("color"), rs.getString("parkingstall"), rs.getInt("odometer"),rs.getBoolean("isnew")));
+//			}
+//			return vl;
+//		}
+//		catch(Exception e1) {
+//			System.out.println(e1.toString());
+//		}
+//		return null;
+//	}
 	public List<Vehicle> getVehiclesByMakeAndColor(String make, String color) {
 		System.out.println("Getting Vehicles");
 		List<Vehicle> vl = new ArrayList<Vehicle>();
@@ -204,7 +204,7 @@ public class DBInteractions {
 		return null;
 	}
 	public String[] getMakeModel(int modelID) {
-		System.out.println("Getting Model and Model");
+		System.out.println("Getting Make and Model");
 		try {
 			String[] mm = new String[3];
 			Class.forName("org.postgresql.Driver");
@@ -255,14 +255,14 @@ public class DBInteractions {
 		}
 		return false;
 	}
-	public boolean changeStall(int vId, int stall) {
+	public boolean changeStall(int vId, String stall) {
 		try {
 			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
 			
 			String sql = "Update Vehicle SET ParkingStall = ? WHERE Vehicle.id = ?";
 			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, stall);
+			statement.setString(1, stall);
 			statement.setInt(2, vId);
 			return true;
 		}
@@ -271,18 +271,65 @@ public class DBInteractions {
 		}
 		return false;
 	}
-	
-	
-	public boolean createVehicle(int VIN, String modelName, String trim, double msrp, String color, String stall, int odometer, boolean isNew) {
+	public int getModelIdOrAddMM(String makeName, String modelName, int year){
+		System.out.println("Getting IDs for Make Model, or adding if non-existant");
+		try { // Honestly, this goes against the layer system as the if/elses should be done in the Functional layer
+			int makeid;
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			String sql = "SELECT id FROM make WHERE make.name = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, makeName);
+			ResultSet rs = statement.executeQuery();
+			if (rs.next()) { //If model exists, gets its ID
+				makeid = rs.getInt("ID");
+			} else {
+				sql = "INSERT INTO Make VALUES (nextval(Make_id_seq), ?";
+				statement = con.prepareStatement(sql);
+				statement.setString(1, makeName);
+				statement.executeQuery();
+				sql = "SELECT id FROM make WHERE make.name = ?";
+				statement = con.prepareStatement(sql);
+				statement.setString(1, makeName);
+				rs = statement.executeQuery();
+				rs.next();
+				makeid = rs.getInt("ID");
+			}
+			sql = "SELECT id FROM model WHERE name = ? AND year = ? AND makeid = ?";
+			statement = con.prepareStatement(sql);
+			statement.setString(1, modelName);
+			statement.setInt(2, year);
+			statement.setInt(3, makeid);
+			rs = statement.executeQuery();
+			int modelid;
+			if (rs.next()) {
+				modelid = rs.getInt("ID");
+			} else {
+				sql = "INSERT INTO Model VALUES (nextval(Make_id_seq), ?, ?, ?";
+				statement = con.prepareStatement(sql);
+				statement.setInt(1, year);
+				statement.setInt(2, makeid);
+				statement.setString(1, modelName);
+				rs = statement.executeQuery();
+				rs.next();
+				modelid = rs.getInt("ID");
+			}
+			return modelid;
+		}
+		catch(Exception e1) {
+			System.out.println(e1.toString());
+		}
+		return -1;
+	}
+	public boolean createVehicle(int VIN, int mID, String trim, double msrp, String color, String stall, int odometer, boolean isNew) {
 		try {
 			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
 			
 			String sql = "INSERT INTO Vehicle VALUES (nextval(Sale_id_seq), "
-					+ "                            ?, (SELECT id FROM model WHERE model.name = ?), ?, ?, ?, ?)";
+					+ "                            ?, ?, ?, ?, ?, ?)";
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setInt(1, VIN);
-			statement.setString(2, modelName);
+			statement.setInt(2, mID);
 			statement.setString(3, trim);
 		    statement.setDouble(4, msrp);
 		    statement.setString(5, color);
