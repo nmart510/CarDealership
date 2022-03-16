@@ -498,9 +498,9 @@ public class DBInteractions {
 			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
 			String sql = "SELECT * FROM Sale WHERE date >= ? AND date <= ?";
 			PreparedStatement statement = con.prepareStatement(sql);
-			rs = statement.executeQuery();
 			statement.setDate(1, convertStringToDate(startDate));
 			statement.setDate(2, convertStringToDate(endDate));
+			rs = statement.executeQuery();
 			while (rs.next()) {
 				sl.add(new Sales(rs.getInt("ID"), rs.getInt("vehicleID"), rs.getInt("customerID"), rs.getInt("employeeID"), rs.getString("date"), 
 						rs.getDouble("price"), rs.getBoolean("dealerpurchase")));
