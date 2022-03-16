@@ -238,7 +238,7 @@ public class DBInteractions {
 			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
 			
-			String sql = "INSERT INTO Sale VALUES (nextval(Sale_id_seq), "
+			String sql = "INSERT INTO Sale VALUES (nextval('Sale_id_seq'), "
 					+ "                            ?, ?, ?, ?, ?, ?)";
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setInt(1, vId);
@@ -331,7 +331,7 @@ public class DBInteractions {
 		}
 		return -1;
 	}
-	public boolean createVehicle(int VIN, int mID, String trim, double msrp, String color, String stall, int odometer, boolean isNew) {
+	public boolean createVehicle(String VIN, int mID, String trim, double msrp, String color, String stall, int odometer, boolean isNew) {
 		try {
 			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
@@ -339,7 +339,7 @@ public class DBInteractions {
 			String sql = "INSERT INTO Vehicle VALUES (nextval('Sale_id_seq'), "
 					+ "                            ?, ?, ?, ?, ?, ?,?,?)";
 			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, VIN);
+			statement.setString(1, VIN);
 			statement.setInt(2, mID);
 			statement.setString(3, trim);
 		    statement.setDouble(4, msrp);

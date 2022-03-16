@@ -41,7 +41,7 @@ public class Dealership {
 	public List<Sales> getSales() {
 		return dbi.getSales();
 	}
-	public boolean addVehicle(int VIN, String makeName, String modelName, int year, String trim, double msrp, String color, String stall, int odometer, boolean isNew) {
+	public boolean addVehicle(String VIN, String makeName, String modelName, int year, String trim, double msrp, String color, String stall, int odometer, boolean isNew) {
 		int mID = dbi.getModelIdOrAddMM(makeName, modelName, year);
 		return dbi.createVehicle(VIN, mID, trim, msrp, color, stall, odometer, isNew);
 	}
