@@ -104,6 +104,53 @@ public class DBInteractions {
 		}
 		return null;
 	}
+	public List<Vehicle> getDealerVehicles() {
+		System.out.println("Getting Vehicles");
+		List<Vehicle> vl = new ArrayList<Vehicle>();
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "SELECT * FROM Vehicle WHERE parkingstall = ? OR parkingstall IS NULL";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, "");
+			rs = statement.executeQuery();
+			while (rs.next()) {
+				String[] mm = getMakeModel(rs.getInt("modelID"));
+				System.out.println(mm[0] + "   " + mm[1] + "   " + mm[2]);
+				
+				vl.add(new Vehicle(rs.getInt("ID"), rs.getString("vin"), mm[1], mm[0], Integer.parseInt(mm[2]), rs.getString("trim"), rs.getDouble("msrp"), 
+						rs.getString("color"), rs.getString("parkingstall"), rs.getInt("odometer"),rs.getBoolean("isnew")));
+			}
+			return vl;
+		}
+		catch(Exception e1) {
+			System.out.println(e1.toString());
+		}
+		return null;
+	}
+	public Vehicle getVehicleByID(int vID) {
+		System.out.println("Getting Vehicle By ID");
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
+			
+			String sql = "SELECT * FROM Vehicle WHERE id = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, vID);
+			rs = statement.executeQuery();
+			rs.next();
+			String[] mm = getMakeModel(rs.getInt("modelID"));
+				
+			Vehicle v = new Vehicle(rs.getInt("ID"), rs.getString("vin"), mm[1], mm[0], Integer.parseInt(mm[2]), rs.getString("trim"), rs.getDouble("msrp"), 
+						rs.getString("color"), rs.getString("parkingstall"), rs.getInt("odometer"),rs.getBoolean("isnew"));
+			return v;
+		}
+		catch(Exception e1) {
+			System.out.println(e1.toString());
+		}
+		return null;
+	}
 	public List<Vehicle> getVehiclesByColor(String color) {
 		System.out.println("Getting Vehicles By Color");
 		List<Vehicle> vl = new ArrayList<Vehicle>();
@@ -267,6 +314,7 @@ public class DBInteractions {
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, stall);
 			statement.setInt(2, vId);
+			statement.executeUpdate();
 			return true;
 		}
 		catch(Exception e1) {

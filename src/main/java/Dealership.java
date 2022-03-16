@@ -18,6 +18,9 @@ public class Dealership {
 	public List<Vehicle> getVehicles() {
 		return dbi.getVehicles();
 	}
+	public List<Vehicle> getDealerVehicles() {
+		return dbi.getDealerVehicles();
+	}
 	public List<Vehicle> getVehicles(String makeName, String color) {
 		if (makeName == null)
 			return dbi.getVehiclesByColor(color);
@@ -27,12 +30,16 @@ public class Dealership {
 			return dbi.getVehiclesByMakeAndColor(makeName, color);
 	}
 	public boolean sellCar(int vehicleID, int customerID, int employeeID, String saleDate, double price) {
+		if(dbi.getVehicleByID(vehicleID).getParkingStall() == "")
+			return false;
 		boolean result = dbi.createSale(vehicleID, customerID, employeeID, saleDate, price, false);
 		if (result)
 			dbi.changeStall(vehicleID, "");
 		return result;
 	}
 	public boolean buyCar(int vehicleID, int customerID, int employeeID, String saleDate, double price, String stall) {
+		if(dbi.getVehicleByID(vehicleID).getParkingStall() != "")
+			return false;
 		boolean result = dbi.createSale(vehicleID, customerID, employeeID, saleDate, price, true);
 		if (result)
 			dbi.changeStall(vehicleID, stall);
