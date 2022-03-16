@@ -247,7 +247,7 @@ public class DBInteractions {
 		    statement.setString(4, saleDate);
 		    statement.setDouble(5, price);
 		    statement.setBoolean(6, purchase);
-			statement.executeQuery();
+			statement.execute();
 			return true;
 		}
 		catch(Exception e1) {
@@ -283,10 +283,12 @@ public class DBInteractions {
 			if (rs.next()) { //If model exists, gets its ID
 				makeid = rs.getInt("ID");
 			} else {
-				sql = "INSERT INTO Make VALUES (nextval(Make_id_seq), ?";
+				System.out.println("Make not found, adding");
+				sql = "INSERT INTO Make VALUES (nextval('make_id_seq'), ?)";
 				statement = con.prepareStatement(sql);
 				statement.setString(1, makeName);
-				statement.executeQuery();
+				statement.execute();
+				System.out.println("Make not found INSERT debug");
 				sql = "SELECT id FROM make WHERE make.name = ?";
 				statement = con.prepareStatement(sql);
 				statement.setString(1, makeName);
@@ -294,6 +296,7 @@ public class DBInteractions {
 				rs.next();
 				makeid = rs.getInt("ID");
 			}
+			System.out.println("Got MakeID: " + makeid);
 			sql = "SELECT id FROM model WHERE name = ? AND year = ? AND makeid = ?";
 			statement = con.prepareStatement(sql);
 			statement.setString(1, modelName);
@@ -304,15 +307,23 @@ public class DBInteractions {
 			if (rs.next()) {
 				modelid = rs.getInt("ID");
 			} else {
-				sql = "INSERT INTO Model VALUES (nextval(Make_id_seq), ?, ?, ?";
+				System.out.println("Model not found, adding");
+				sql = "INSERT INTO Model VALUES (nextval('Model_id_seq'), ?, ?, ?)";
 				statement = con.prepareStatement(sql);
 				statement.setInt(1, year);
 				statement.setInt(2, makeid);
+				statement.setString(3, modelName);
+				statement.execute();
+				sql = "SELECT id FROM model WHERE name = ? AND year = ? AND makeid = ?";
+				statement = con.prepareStatement(sql);
 				statement.setString(1, modelName);
+				statement.setInt(2, year);
+				statement.setInt(3, makeid);
 				rs = statement.executeQuery();
 				rs.next();
 				modelid = rs.getInt("ID");
 			}
+			System.out.println("Got ModelID: " + modelid);
 			return modelid;
 		}
 		catch(Exception e1) {
@@ -325,8 +336,8 @@ public class DBInteractions {
 			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection(user.filepath, "postgres", user.password);
 			
-			String sql = "INSERT INTO Vehicle VALUES (nextval(Sale_id_seq), "
-					+ "                            ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO Vehicle VALUES (nextval('Sale_id_seq'), "
+					+ "                            ?, ?, ?, ?, ?, ?,?,?)";
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setInt(1, VIN);
 			statement.setInt(2, mID);
@@ -334,14 +345,13 @@ public class DBInteractions {
 		    statement.setDouble(4, msrp);
 		    statement.setString(5, color);
 		    statement.setString(6, stall);
-		    statement.setString(6, stall);
 		    statement.setInt(7, odometer);
 		    statement.setBoolean(8, isNew);
-			statement.executeQuery();
+			statement.execute();
 			return true;
 		}
 		catch(Exception e1) {
-			System.out.println(e1.toString());
+			System.out.println("createVehicle exception: " + e1.toString());
 		}
 		return false;
 	}
